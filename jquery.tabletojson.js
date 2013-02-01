@@ -23,14 +23,11 @@
       if($.inArray(colIndex, opts.ignoreColNum) == -1) {
         if($(col).data("column-name") != undefined || $(col).data("column-name") != null) {
           headings[colIndex] = $(col).data("column-name");
-          console.log("Using Set Heading:" + headings[colIndex]);
         } else {
           headings[colIndex] = $(col).text().trim();
-          console.log("Found Heading:" + $(col).text().trim());
         }
       } else {
         headings[colIndex] = null;
-        console.log("Ignoring Heading: " + colIndex);
       }
     });
 
@@ -40,10 +37,7 @@
         values[rowIndex] = {};
         $(row).find("td").each(function(colIndex, col) {
           if( headings[colIndex] != null ){
-            console.log("Adding Value {"+ $(col).text().trim() +"} to column {" + headings[colIndex] + "}");
             values[rowIndex][ headings[colIndex] ] = $(col).text().trim();
-          } else {
-            console.log("Ignoring Value {"+ $(col).text().trim() +"} inside column {" + headings[colIndex] + "}");
           }
         });
       }
