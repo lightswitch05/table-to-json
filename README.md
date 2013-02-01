@@ -1,6 +1,11 @@
 # Table To JSON
 
-Serializes HTML tables into JSON objects.
+jQuery plugin to serializes HTML tables into JSON objects.
+
+## Features
+- Automatically finds column headings
+  - Override found column headings by using `data-column-name="overridden column name"`
+- Ignorable columns
 
 ## Options
 - `ignoreColNum`
@@ -17,7 +22,7 @@ Serializes HTML tables into JSON objects.
         <th>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>Points</th></tr>
+          <th data-column-name="Score">Points</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -42,17 +47,17 @@ Serializes HTML tables into JSON objects.
     <script type="text/javascript">
       // Basic Usage
       var table = $('#example-table').tableToJSON();
-      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Points"=>"50"}, 
-      //           {"First Name"=>"Eve", "Last Name"=>"Jackson", "Points"=>"94"},
-      //           {"First Name"=>"John", "Last Name"=>"Doe", "Points"=>"80"},
-      //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Points"=>"67"}]
+      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"50"}, 
+      //           {"First Name"=>"Eve", "Last Name"=>"Jackson", "Score"=>"94"},
+      //           {"First Name"=>"John", "Last Name"=>"Doe", "Score"=>"80"},
+      //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>"67"}]
       
       // Ignore first column (name)
       var table = $('#example-table').tableToJSON({
             ignoreColNum: [0]
       });
-      // table == [{"Last Name"=>"Smith", "Points"=>"50"}, 
-      //           {"Last Name"=>"Jackson", "Points"=>"94"},
-      //           {"Last Name"=>"Doe", "Points"=>"80"},
-      //           {"Last Name"=>"Johnson", "Points"=>"67"}]
+      // table == [{"Last Name"=>"Smith", "Score"=>"50"}, 
+      //           {"Last Name"=>"Jackson", "Score"=>"94"},
+      //           {"Last Name"=>"Doe", "Score"=>"80"},
+      //           {"Last Name"=>"Johnson", "Score"=>"67"}]
     </script>
