@@ -5,6 +5,7 @@ jQuery plugin to serializes HTML tables into JSON objects.
 ## Features
 - Automatically finds column headings
   - Override found column headings by using `data-column-name="overridden column name"`
+- Override cell values by using `data-cell-value="new value"`
 - Ignorable columns
 
 ## Options
@@ -28,7 +29,7 @@ jQuery plugin to serializes HTML tables into JSON objects.
         <tr>
           <td>Jill</td>
           <td>Smith</td>
-          <td>50</td></tr>
+          <td data-cell-value="disqualified">50</td></tr>
         <tr>
           <td>Eve</td>
           <td>Jackson</td>
@@ -47,7 +48,7 @@ jQuery plugin to serializes HTML tables into JSON objects.
     <script type="text/javascript">
       // Basic Usage
       var table = $('#example-table').tableToJSON();
-      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"50"}, 
+      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"disqualified"}, 
       //           {"First Name"=>"Eve", "Last Name"=>"Jackson", "Score"=>"94"},
       //           {"First Name"=>"John", "Last Name"=>"Doe", "Score"=>"80"},
       //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>"67"}]
@@ -56,7 +57,7 @@ jQuery plugin to serializes HTML tables into JSON objects.
       var table = $('#example-table').tableToJSON({
             ignoreColNum: [0]
       });
-      // table == [{"Last Name"=>"Smith", "Score"=>"50"}, 
+      // table == [{"Last Name"=>"Smith", "Score"=>"disqualified"}, 
       //           {"Last Name"=>"Jackson", "Score"=>"94"},
       //           {"Last Name"=>"Doe", "Score"=>"80"},
       //           {"Last Name"=>"Johnson", "Score"=>"67"}]
