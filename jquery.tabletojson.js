@@ -2,9 +2,9 @@
   Table To JSON jQuery Plugin
   by Daniel White - developerdan.com
 
-  Copyright (c) 2013 Daniel White. Released under the MIT License.
+  Version: 0.2.1
 
-  Version: 0.2.0
+  Copyright (c) 2013 Daniel White. Released under the MIT License.
 
   Feel free to contribute to this project on GitHub by
   submitting pull requests and reporting issues @
@@ -27,7 +27,7 @@
         if($(col).data("column-name") != undefined || $(col).data("column-name") != null) {
           headings[colIndex] = $(col).data("column-name");
         } else {
-          headings[colIndex] = $(col).text().trim();
+          headings[colIndex] = $.trim($(col).text());
         }
       } else {
         headings[colIndex] = null;
@@ -48,7 +48,7 @@
           if($(col).data("cell-value") != undefined || $(col).data("cell-value") != null) {
             values[rowIndex][ headings[colIndex] ] = $(col).data("cell-value");
           } else {
-            values[rowIndex][ headings[colIndex] ] = $(col).text().trim();
+            values[rowIndex][ headings[colIndex] ] = $.trim($(col).text());
           }
         }
       });
