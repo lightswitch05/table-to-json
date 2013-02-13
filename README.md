@@ -13,17 +13,17 @@ jQuery plugin to serializes HTML tables into JSON objects.
   - Array of column indexes to ignore.
   - Default: `[]`
 - `ignoreHiddenRows`
-  - Boolean if hidden rows should be included.
+  - Boolean if hidden rows should be ignored or not.
   - Default: `true`
   
 ## Demo
-- http://jsfiddle.net/62Kfp/3/
+- http://jsfiddle.net/62Kfp/6/
 
 ## Example
 
     <table id='example-table'>
       <thead>
-        <th>
+        <tr>
           <th>First Name</th>
           <th>Last Name</th>
           <th data-column-name="Score">Points</th></tr>
