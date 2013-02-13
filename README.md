@@ -16,6 +16,9 @@ jQuery plugin to serializes HTML tables into JSON objects.
   - Boolean if hidden rows should be included.
   - Default: `true`
   
+## Demo
+- http://jsfiddle.net/62Kfp/3/
+
 ## Example
 
     <table id='example-table'>
