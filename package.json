@@ -1,0 +1,19 @@
+﻿{
+  "name"        : "Table To JSON",   "description" : "jQuery plugin that reads an HTML table and returns a javascript object representing the values and columns of the table",
+  "version"     : "0.3.0",
+  "homepage"    : "https://github.com/lightswitch05/table-to-json",
+  "author" : {
+    "name"  : "Daniel White"
+  },
+  "scripts": {
+    "test": "grunt lint qunit"
+  },
+  "devDependencies": {
+    "jquery": ">=1.5",
+    "grunt": "~0.3.17"
+  },
+  "licenses" : [{
+    "type" : "MIT",
+    "url"  : "https://github.com/lightswitch05/table-to-json/blob/master/MIT-LICENSE"
+    }]
+}
