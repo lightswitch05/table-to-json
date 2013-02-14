@@ -1,12 +1,13 @@
-# Table To JSON
+﻿# Table To JSON
 
-jQuery plugin to serializes HTML tables into JSON objects.
+jQuery plugin to serialize HTML tables into javascript objects.
 
 ## Features
 - Automatically finds column headings
   - Override found column headings by using `data-column-name="overridden column name"`
 - Override cell values by using `data-cell-value="new value"`
 - Ignorable columns
+- Not confused by nested tables
 
 ## Options
 - `ignoreColNum`
@@ -15,7 +16,7 @@ jQuery plugin to serializes HTML tables into JSON objects.
 - `ignoreHiddenRows`
   - Boolean if hidden rows should be ignored or not.
   - Default: `true`
-  
+
 ## Demo
 - http://jsfiddle.net/62Kfp/6/
 
@@ -51,16 +52,16 @@ jQuery plugin to serializes HTML tables into JSON objects.
     <script type="text/javascript">
       // Basic Usage
       var table = $('#example-table').tableToJSON();
-      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"disqualified"}, 
+      // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"disqualified"},
       //           {"First Name"=>"Eve", "Last Name"=>"Jackson", "Score"=>"94"},
       //           {"First Name"=>"John", "Last Name"=>"Doe", "Score"=>"80"},
       //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>"67"}]
-      
+
       // Ignore first column (name)
       var table = $('#example-table').tableToJSON({
             ignoreColNum: [0]
       });
-      // table == [{"Last Name"=>"Smith", "Score"=>"disqualified"}, 
+      // table == [{"Last Name"=>"Smith", "Score"=>"disqualified"},
       //           {"Last Name"=>"Jackson", "Score"=>"94"},
       //           {"Last Name"=>"Doe", "Score"=>"80"},
       //           {"Last Name"=>"Johnson", "Score"=>"67"}]
