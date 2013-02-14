@@ -1,5 +1,7 @@
 ﻿# Table To JSON
 
+[![Build Status](https://travis-ci.org/lightswitch05/table-to-json.png?branch=master)](https://travis-ci.org/lightswitch05/table-to-json)
+
 jQuery plugin to serialize HTML tables into javascript objects.
 
 ## Features
