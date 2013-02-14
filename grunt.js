@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        curly     : false,
+        curly     : true,
         eqeqeq    : true,
         immed     : true,
         latedef   : true,
@@ -53,12 +53,8 @@ module.exports = function(grunt) {
         noarg     : true,
         sub       : true,
         undef     : true,
-        boss      : true,
         eqnull    : true,
-        browser   : true
-      },
-      globals: {
-        jQuery: true
+        jquery    : true
       }
     }
   });
