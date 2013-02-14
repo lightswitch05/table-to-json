@@ -1,4 +1,4 @@
-﻿module("content");
+module("content");
 
 /* Ignore nested tables in cells */
 test("ignore nested tables in cells", function() {

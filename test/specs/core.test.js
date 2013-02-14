@@ -1,4 +1,4 @@
-﻿module("core");
+module("core");
 
 /* Basic Usage */
 test("basic usage", function() {

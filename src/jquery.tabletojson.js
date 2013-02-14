@@ -1,4 +1,4 @@
-﻿/*global define*/
+/*global define*/
 (function( $ ) {
   $.fn.tableToJSON = function(opts) {
 

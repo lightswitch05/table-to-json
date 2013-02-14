@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "tabletojson",
   "title": "Table To JSON",
   "description": "jQuery plugin that reads an HTML table and returns a javascript object representing the values and columns of the table",
