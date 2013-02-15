@@ -1,5 +1,5 @@
 {
-  "name"        : "Table To JSON",
+  "name"        : "tabletojson",
   "description" : "jQuery plugin that reads an HTML table and returns a javascript object representing the values and columns of the table",
   "version"     : "0.3.0",
   "homepage"    : "https://github.com/lightswitch05/table-to-json",
@@ -15,7 +15,6 @@
     "test": "grunt lint qunit"
   },
   "devDependencies": {
-    "jquery": ">=1.5",
     "grunt": "~0.3.17"
   },
   "licenses" : [{
