@@ -20,7 +20,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - Default: `true`
 
 ## Demo
-- http://jsfiddle.net/62Kfp/6/
+- http://jsfiddle.net/62Kfp/9/
 
 ## Example
 
