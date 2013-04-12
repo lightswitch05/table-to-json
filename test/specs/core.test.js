@@ -258,3 +258,41 @@ test("Include Hidden Rows", function() {
                   {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
   deepEqual(table, expected);
 });
+
+/* Read first row of td's as column when there are no th's*/
+test("without any th's", function() {
+  $("#qunit-fixture").html(
+      "<table id='test-table'>" +
+        "<tr>" +
+          "<td>First Name</td>" +
+          "<td>Last Name</td>" +
+          "<td>Points</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Jill</td>" +
+          "<td>Smith</td>" +
+          "<td>50</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Eve</td>" +
+          "<td>Jackson</td>" +
+          "<td>94</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>John</td>" +
+          "<td>Doe</td>" +
+          "<td>80</td>" +
+        "</tr>" +
+      "</table>"
+    );
+
+
+  expect(1);
+  var table = $("#test-table").tableToJSON({
+        ignoreHiddenRows: false
+  });
+  var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
+                  {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+  deepEqual(table, expected);
+});
