@@ -1,7 +1,7 @@
 module("content");
 
-/* Ignore nested tables in cells */
-test("ignore nested tables in cells", function() {
+/* Ignore nested tables in cells with just td's*/
+test("ignore nested td's in cells", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
@@ -36,8 +36,44 @@ test("ignore nested tables in cells", function() {
   deepEqual(table, expected);
 });
 
-/* Ignore nested tables in headings */
-test("ignore nested tables in headings", function() {
+/* Ignore nested tables in cells with th's and td's*/
+test("ignore nested th's and td's in cells", function() {
+  $("#qunit-fixture").html(
+      "<table id='test-table'>" +
+        "<tr>" +
+          "<th>First Name</th>" +
+          "<th>Last Name</th>" +
+          "<th>Points</th>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Jill</td>" +
+          "<td>Smith</td>" +
+          "<td>50</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Eve <table><tr><th>number</th></tr><tr><td>1</td></tr><tr><td>2</td></tr></table> </td>" +
+          "<td>Jackson</td>" +
+          "<td>94</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>John</td>" +
+          "<td>Doe</td>" +
+          "<td>80</td>" +
+        "</tr>" +
+      "</table>"
+    );
+
+
+  expect(1);
+  var table = $("#test-table").tableToJSON();
+  var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
+                  {"First Name":"Eve number12", "Last Name":"Jackson", "Points":"94"},
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+  deepEqual(table, expected);
+});
+
+/* Ignore nested tables in headings with just td's*/
+test("ignore nested td's in headings", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
@@ -69,6 +105,42 @@ test("ignore nested tables in headings", function() {
   var expected = [{"First Name":"Jill", "Last Name 12":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name 12":"Jackson", "Points":"94"},
                   {"First Name":"John", "Last Name 12":"Doe", "Points":"80"}]
+  deepEqual(table, expected);
+});
+
+/* Ignore nested tables in headings with th's and td's*/
+test("ignore nested th's and td's in headings", function() {
+  $("#qunit-fixture").html(
+      "<table id='test-table'>" +
+        "<tr>" +
+          "<th>First Name</th>" +
+          "<th>Last Name <table><tr><th>number</th></tr><tr><td>1</td></tr><tr><td>2</td></tr></table> </th>" +
+          "<th>Points</th>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Jill</td>" +
+          "<td>Smith</td>" +
+          "<td>50</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Eve</td>" +
+          "<td>Jackson</td>" +
+          "<td>94</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>John</td>" +
+          "<td>Doe</td>" +
+          "<td>80</td>" +
+        "</tr>" +
+      "</table>"
+    );
+
+
+  expect(1);
+  var table = $("#test-table").tableToJSON();
+  var expected = [{"First Name":"Jill", "Last Name number12":"Smith", "Points":"50"},
+                  {"First Name":"Eve", "Last Name number12":"Jackson", "Points":"94"},
+                  {"First Name":"John", "Last Name number12":"Doe", "Points":"80"}]
   deepEqual(table, expected);
 });
 
