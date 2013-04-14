@@ -81,7 +81,7 @@ test("override column names", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
-          "<th data-column-name='Nickname'>First Name</th>" +
+          "<th data-override='Nickname'>First Name</th>" +
           "<th>Last Name</th>" +
           "<th>Points</th>" +
         "</tr>" +
@@ -117,14 +117,14 @@ test("override column names", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
-          "<th data-column-name='Nickname'>First Name</th>" +
+          "<th data-override='Nickname'>First Name</th>" +
           "<th>Last Name</th>" +
           "<th>Points</th>" +
         "</tr>" +
         "<tr>" +
           "<td>Jill</td>" +
           "<td>Smith</td>" +
-          "<td data-cell-value='disqualified'>50</td>" +
+          "<td data-override='disqualified'>50</td>" +
         "</tr>" +
         "<tr>" +
           "<td>Eve</td>" +
@@ -178,7 +178,7 @@ test("ignore columns", function() {
 
   expect(1);
   var table = $("#test-table").tableToJSON({
-        ignoreColNum: [0]
+        ignoreColumns: [0]
   });
   var expected = [{"Last Name":"Smith", "Points":"50"},
                   {"Last Name":"Jackson", "Points":"94"},
