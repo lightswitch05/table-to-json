@@ -32,7 +32,7 @@ test("basic usage", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -72,7 +72,7 @@ test("basic usage with thead and tbody", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -81,7 +81,7 @@ test("override column names", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
-          "<th data-column-name='Nickname'>First Name</th>" +
+          "<th data-override='Nickname'>First Name</th>" +
           "<th>Last Name</th>" +
           "<th>Points</th>" +
         "</tr>" +
@@ -108,7 +108,7 @@ test("override column names", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"Nickname":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"Nickname":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"Nickname":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"Nickname":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -117,14 +117,14 @@ test("override column names", function() {
   $("#qunit-fixture").html(
       "<table id='test-table'>" +
         "<tr>" +
-          "<th data-column-name='Nickname'>First Name</th>" +
+          "<th data-override='Nickname'>First Name</th>" +
           "<th>Last Name</th>" +
           "<th>Points</th>" +
         "</tr>" +
         "<tr>" +
           "<td>Jill</td>" +
           "<td>Smith</td>" +
-          "<td data-cell-value='disqualified'>50</td>" +
+          "<td data-override='disqualified'>50</td>" +
         "</tr>" +
         "<tr>" +
           "<td>Eve</td>" +
@@ -144,7 +144,7 @@ test("override column names", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"Nickname":"Jill", "Last Name":"Smith", "Points":"disqualified"},
                   {"Nickname":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"Nickname":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"Nickname":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -178,11 +178,11 @@ test("ignore columns", function() {
 
   expect(1);
   var table = $("#test-table").tableToJSON({
-        ignoreColNum: [0]
+        ignoreColumns: [0]
   });
   var expected = [{"Last Name":"Smith", "Points":"50"},
                   {"Last Name":"Jackson", "Points":"94"},
-                  {"Last Name":"Doe", "Points":"80"}]
+                  {"Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -255,7 +255,7 @@ test("Include Hidden Rows", function() {
   });
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -288,11 +288,86 @@ test("without any th's", function() {
 
 
   expect(1);
-  var table = $("#test-table").tableToJSON({
-        ignoreHiddenRows: false
-  });
+  var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
+  deepEqual(table, expected);
+});
+
+/* Uses the onlyColumns option to only include the first column*/
+test("Ony include 1 column", function() {
+  $("#qunit-fixture").html(
+      "<table id='test-table'>" +
+        "<tr>" +
+          "<th>First Name</th>" +
+          "<th>Last Name</th>" +
+          "<th>Points</th>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Jill</td>" +
+          "<td>Smith</td>" +
+          "<td>50</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Eve</td>" +
+          "<td>Jackson</td>" +
+          "<td>94</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>John</td>" +
+          "<td>Doe</td>" +
+          "<td>80</td>" +
+        "</tr>" +
+      "</table>"
+    );
+
+
+  expect(1);
+  var table = $("#test-table").tableToJSON({
+        onlyColumns: [0]
+  });
+  var expected = [{"First Name":"Jill"},
+                  {"First Name":"Eve"},
+                  {"First Name":"John"}];
+  deepEqual(table, expected);
+});
+
+/* onlyColumns option overrides ignoreColumns option */
+test("onlyColumns option overrides ignoreColumns option", function() {
+  $("#qunit-fixture").html(
+      "<table id='test-table'>" +
+        "<tr>" +
+          "<th>First Name</th>" +
+          "<th>Last Name</th>" +
+          "<th>Points</th>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Jill</td>" +
+          "<td>Smith</td>" +
+          "<td>50</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>Eve</td>" +
+          "<td>Jackson</td>" +
+          "<td>94</td>" +
+        "</tr>" +
+        "<tr>" +
+          "<td>John</td>" +
+          "<td>Doe</td>" +
+          "<td>80</td>" +
+        "</tr>" +
+      "</table>"
+    );
+
+
+  expect(1);
+  var table = $("#test-table").tableToJSON({
+        onlyColumns: [0, 1],
+        ignoreColumns: [0, 1]
+  });
+  var expected = [{"First Name":"Jill", "Last Name":"Smith"},
+                  {"First Name":"Eve", "Last Name":"Jackson"},
+                  {"First Name":"John", "Last Name":"Doe"}];
   deepEqual(table, expected);
 });
