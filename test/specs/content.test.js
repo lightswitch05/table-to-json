@@ -32,7 +32,7 @@ test("ignore nested td's in cells", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve 12", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -68,7 +68,7 @@ test("ignore nested th's and td's in cells", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve number12", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -104,7 +104,7 @@ test("ignore nested td's in headings", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name 12":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name 12":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name 12":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name 12":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -140,7 +140,7 @@ test("ignore nested th's and td's in headings", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name number12":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name number12":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name number12":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name number12":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -176,7 +176,7 @@ test("links are just values", function() {
   var table = $("#test-table").tableToJSON();
   var expected = [{"First Name":"Jill", "Last Name":"Smith", "Points":"50"},
                   {"First Name":"Eve", "Last Name":"Jackson", "Points":"94"},
-                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}]
+                  {"First Name":"John", "Last Name":"Doe", "Points":"80"}];
   deepEqual(table, expected);
 });
 
@@ -189,6 +189,6 @@ test("complex table", function() {
 
   expect(1);
   var table = $("#test-table").tableToJSON();
-  var expected = [{"id":"oaWd4cs2JHY660pG", "State":"INCOMPLETE", "BCS":"location", "ZONE":"1", "TIER":"QTY", "INSTALL_CALC":"B", "INSTALL_R1":"9.5"}]
+  var expected = [{"id":"oaWd4cs2JHY660pG", "State":"INCOMPLETE", "BCS":"location", "ZONE":"1", "TIER":"QTY", "INSTALL_CALC":"B", "INSTALL_R1":"9.5"}];
   deepEqual(table, expected);
 });

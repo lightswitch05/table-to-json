@@ -4,6 +4,7 @@
     // Set options
     var defaults = {
       ignoreColumns: [],
+      onlyColumns: null,
       ignoreHiddenRows: true
     };
     opts = $.extend(defaults, opts);
@@ -16,6 +17,9 @@
     };
 
     var ignoredColumn = function(index) {
+      if( notNull(opts.onlyColumns) ) {
+        return $.inArray(index, opts.onlyColumns) === -1;
+      }
       return $.inArray(index, opts.ignoreColumns) !== -1;
     };
 

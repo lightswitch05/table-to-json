@@ -13,17 +13,21 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - Not confused by nested tables
 
 ## Options
-- `ignoreColNum`
+- `ignoreColumns`
   - Array of column indexes to ignore.
   - Default: `[]`
+- `onlyColumns`
+  - Array of column indexes to include, all other columns are ignored. This takes presidence over `ignoreColumns` when provided.
+  - Default: `null` - all columns
 - `ignoreHiddenRows`
   - Boolean if hidden rows should be ignored or not.
   - Default: `true`
 
 ## Changes
-- 0.5.0
+- **0.5.0** - The release break backwards compatibility for both option names and data-* attributes, 
   - Changed option `ignoreColNum` to `ignoreColumns`.
   - Merged `data-cell-value` and `data-column-name` into a single attribute: `data-override`.
+  - Added a new option `onlyColumns` to set which columns are included and ingore all others.
 - 0.4.0
   - No longer requires the use of `th` elements - always uses the first row as column names.
 - 0.3.0
