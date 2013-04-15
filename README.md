@@ -4,6 +4,9 @@
 
 jQuery plugin to serialize HTML tables into javascript objects.
 
+## Demo
+- http://jsfiddle.net/62Kfp/9/
+
 ## Features
 - Automatically finds column headings
   - Override found column headings by using `data-override="overridden column name"`
@@ -24,17 +27,15 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - Default: `true`
 
 ## Changes
-- **0.5.0** - The release break backwards compatibility for both option names and data-* attributes, 
+- 0.5.0
+  - **The release break backwards compatibility for both option names and data-* attributes.**
   - Changed option `ignoreColNum` to `ignoreColumns`.
   - Merged `data-cell-value` and `data-column-name` into a single attribute: `data-override`.
-  - Added a new option `onlyColumns` to set which columns are included and ingore all others.
+  - Added a new option `onlyColumns` to set which columns are included and ignores all others.
 - 0.4.0
   - No longer requires the use of `th` elements - always uses the first row as column names.
 - 0.3.0
   - Added tests and fixed many bugs.
-
-## Demo
-- http://jsfiddle.net/62Kfp/9/
 
 ## Example
 
