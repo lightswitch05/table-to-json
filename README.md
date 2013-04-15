@@ -10,8 +10,8 @@ jQuery plugin to serialize HTML tables into javascript objects.
 ## Features
 - Automatically finds column headings
   - Override found column headings by using `data-override="overridden column name"`
-  - Falls back on first row when no `th` elements are found
-- Override cell values by using `data-override="new value"`
+  - Always uses first row as column headings regardless of `th` and `td` tags
+- Override cell values column names by using `data-override="new value"`
 - Ignorable columns
 - Not confused by nested tables
 
