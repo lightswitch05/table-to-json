@@ -28,7 +28,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
 
 ## Changes
 - 0.5.0
-  - **The release break backwards compatibility for both option names and data-* attributes.**
+  - **The release breaks backwards compatibility for both option names and data-* attributes.**
   - Changed option `ignoreColNum` to `ignoreColumns`.
   - Merged `data-cell-value` and `data-column-name` into a single attribute: `data-override`.
   - Added a new option `onlyColumns` to set which columns are included and ignores all others.
