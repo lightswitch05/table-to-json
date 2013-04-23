@@ -27,6 +27,9 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - Default: `true`
 
 ## Changes
+- 0.5.1
+  - Halved execution time.
+  - Added more JSHint requirements.
 - 0.5.0
   - **The release breaks backwards compatibility for both option names and data-* attributes.**
   - Changed option `ignoreColNum` to `ignoreColumns`.
