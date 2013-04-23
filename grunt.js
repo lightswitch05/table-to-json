@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: "<json:package.json>",
     meta: {
       banner : "/**\n" +
                " * <%= pkg.name %>\n" +
@@ -34,12 +34,12 @@ module.exports = function(grunt) {
       "lib/jquery.tabletojson.min.js" : ["<banner>", "<banner>","lib/jquery.tabletojson.js"]
     },
     qunit: {
-      files: ['test/index.html']
+      files: ["test/index.html"]
     },
     watch: {
       scripts: {
-        files : '<config:lint.files>',
-        tasks : 'default'
+        files : "<config:lint.files>",
+        tasks : "default"
       }
     },
     jshint: {
@@ -54,12 +54,19 @@ module.exports = function(grunt) {
         sub       : true,
         undef     : true,
         eqnull    : true,
-        jquery    : true
+        jquery    : true,
+        unused    : true,
+        bitwise   : true,
+        camelcase : true,
+        forin     : true,
+        nonew     : true,
+        quotmark  : true,
+        trailing  : true
       }
     }
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask("default", "lint qunit concat min");
 
 };

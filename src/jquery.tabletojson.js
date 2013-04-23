@@ -54,7 +54,7 @@
       var result = [];
       table.children("tbody,*").children("tr").each(function(rowIndex, row) {
         if( rowIndex !== 0 ) {
-          if( $(row).is(':visible') || !opts.ignoreHiddenRows ) {
+          if( $(row).is(":visible") || !opts.ignoreHiddenRows ) {
             result[result.length] = arraysToHash(headings, rowValues(row));
           }
         }
@@ -64,7 +64,6 @@
 
     // Run
     var headings = getHeadings(this);
-    var completeTable = construct(this, headings);
     return construct(this, headings);
   };
 })( jQuery );
