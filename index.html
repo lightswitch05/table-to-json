@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Table-to-json</title>
+    <title>Table-to-JSON</title>
   </head>
 
   <body>
@@ -31,54 +31,147 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+<h3>About</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Table To JSON is a jQuery plugin that converts an HTML Table into a javascript object. Obviously the need for such a plugin is not very common, but I needed it so here it is.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>Features</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>
+<ul>
+  <li>Automatically finds column headings
+    <ul>
+      <li>Override found column headings by using <code>data-override="overridden column name"</code></li>
+      <li>Always uses first row as column headings regardless of th and td tags</li>
+    </ul>
+  </li>
+  <li>Override cell values column names by using <code>data-override="new value"</code></li>
+  <li>Ignorable columns</li>
+  <li>Not confused by nested tables</li>
+</ul>
+</p>
 
-<h3>Designer Templates</h3>
+<h3>Options</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>
+<ul>
+  <li><code>ignoreColumns</code>
+    <ul>
+      <li>Array of column indexes to ignore.</li>
+      <li>Default: <code>[]</code></li>
+    </ul>
+  </li>
+  <li><code>onlyColumns</code>
+    <ul>
+      <li>Array of column indexes to include, all other columns are ignored. This takes presidence over ignoreColumns when provided.</li>
+      <li>Default: <code>null</code> - all columns</li>
+    </ul>
+  </li>
+  <li><code>ignoreHiddenRows</code>
+    <ul>
+      <li>Boolean if hidden rows should be ignored or not.</li>
+      <li>Default: <code>true</code></li>
+    </ul>
+  </li>
+</ul>
+</p>
 
-<h3>Rather Drive Stick?</h3>
+<h3>Demo</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>
+<table id='example-table' class="table table-striped">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th data-override="Score">Points</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jill</td>
+      <td>Smith</td>
+      <td data-override="disqualified">50</td></tr>
+    <tr>
+      <td>Eve</td>
+      <td>Jackson</td>
+      <td>94</td></tr>
+    <tr>
+      <td>John</td>
+      <td>Doe</td>
+      <td>80</td></tr>
+    <tr>
+      <td>Adam</td>
+      <td>Johnson</td>
+      <td>67</td></tr>
+  </tbody>
+</table>
 
-<h3>Authors and Contributors</h3>
+<button id="convert-table">Convert!</button>
+</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>
+  <pre><code>
+&lt;table id='example-table' class=&quot;table table-striped&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;First Name&lt;/th&gt;
+      &lt;th&gt;Last Name&lt;/th&gt;
+      &lt;th data-override=&quot;Score&quot;&gt;Points&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jill&lt;/td&gt;
+      &lt;td&gt;Smith&lt;/td&gt;
+      &lt;td data-override=&quot;disqualified&quot;&gt;50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Eve&lt;/td&gt;
+      &lt;td&gt;Jackson&lt;/td&gt;
+      &lt;td&gt;94&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;John&lt;/td&gt;
+      &lt;td&gt;Doe&lt;/td&gt;
+      &lt;td&gt;80&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Adam&lt;/td&gt;
+      &lt;td&gt;Johnson&lt;/td&gt;
+      &lt;td&gt;67&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-<h3>Support or Contact</h3>
+&lt;script&gt;
+$('#convert-table').click( function() {
+  var table = $('#example-table').tableToJSON();
+  alert(JSON.stringify(table));
+});
+&lt;/script&gt;
+  </code></pre>
+</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Table-to-json maintained by <a href="https://github.com/lightswitch05">lightswitch05</a></p>
+        <p class="copyright">Table-to-JSON maintained by <a href="https://github.com/lightswitch05">lightswitch05</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-41192542-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+    
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="javascripts/jquery.tabletojson.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-41192542-1");
+          pageTracker._trackPageview();
+        } catch(err) {}
+    </script>
 
   </body>
 </html>

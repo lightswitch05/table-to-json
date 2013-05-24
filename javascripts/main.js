@@ -1,1 +1,4 @@
-console.log('This would be the main JS file.');
+$('#convert-table').click( function() {
+  var table = $('#example-table').tableToJSON();
+  alert(JSON.stringify(table));  
+});
