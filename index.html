@@ -6,160 +6,150 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="Table-to-json : Serializes HTML tables into JSON objects." />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/main.css">
 
     <title>Table-to-JSON</title>
   </head>
 
   <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/lightswitch05/table-to-json">View on GitHub</a>
-
-          <h1 id="project_title">Table-to-json</h1>
-          <h2 id="project_tagline">Serializes HTML tables into JSON objects.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/lightswitch05/table-to-json/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/lightswitch05/table-to-json/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+    <div class="container" style="padding-bottom:50px;">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+      <a href="https://github.com/lightswitch05/table-to-json"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+        <div class="navbar-inner">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Table-to-JSON</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="https://github.com/lightswitch05/table-to-json">Github</a></li>
+                <li><a href="https://github.com/lightswitch05/table-to-json/issues">Issues</a></li>
+                <li><a href="http://www.developerdan.com/about">About Me</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Table-to-JSON</h1>
+        <p class="muted">
+          A jQuery plugin that converts an HTML Table into a javascript object. Great for working with user-editable tables or accessing output from 3rd party tools.
+        </p>
+        
+        <div style="text-align: center">
+          <p>
+            <a class="btn btn-success btn-large" href="https://github.com/lightswitch05/table-to-json/zipball/master">Download .zip</a>
+            <a class="btn btn-primary btn-large" href="https://github.com/lightswitch05/table-to-json/tarball/master">Download tar.gz</a>
+          </p>                    
+        </div>
+      </div>
+    </div>
+    
     <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-<h3>About</h3>
-
-<p>Table To JSON is a jQuery plugin that converts an HTML Table into a javascript object. Obviously the need for such a plugin is not very common, but I needed it so here it is.</p>
-
-<h3>Features</h3>
-
-<p>
-<ul>
-  <li>Automatically finds column headings
-    <ul>
-      <li>Override found column headings by using <code>data-override="overridden column name"</code></li>
-      <li>Always uses first row as column headings regardless of th and td tags</li>
-    </ul>
-  </li>
-  <li>Override cell values column names by using <code>data-override="new value"</code></li>
-  <li>Ignorable columns</li>
-  <li>Not confused by nested tables</li>
-</ul>
-</p>
-
-<h3>Options</h3>
-
-<p>
-<ul>
-  <li><code>ignoreColumns</code>
-    <ul>
-      <li>Array of column indexes to ignore.</li>
-      <li>Default: <code>[]</code></li>
-    </ul>
-  </li>
-  <li><code>onlyColumns</code>
-    <ul>
-      <li>Array of column indexes to include, all other columns are ignored. This takes presidence over ignoreColumns when provided.</li>
-      <li>Default: <code>null</code> - all columns</li>
-    </ul>
-  </li>
-  <li><code>ignoreHiddenRows</code>
-    <ul>
-      <li>Boolean if hidden rows should be ignored or not.</li>
-      <li>Default: <code>true</code></li>
-    </ul>
-  </li>
-</ul>
-</p>
-
-<h3>Demo</h3>
-
-<p>
-<table id='example-table' class="table table-striped">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th data-override="Score">Points</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Jill</td>
-      <td>Smith</td>
-      <td data-override="disqualified">50</td></tr>
-    <tr>
-      <td>Eve</td>
-      <td>Jackson</td>
-      <td>94</td></tr>
-    <tr>
-      <td>John</td>
-      <td>Doe</td>
-      <td>80</td></tr>
-    <tr>
-      <td>Adam</td>
-      <td>Johnson</td>
-      <td>67</td></tr>
-  </tbody>
-</table>
-
-<button id="convert-table">Convert!</button>
-</p>
-
-<p>
-  <pre><code>
-&lt;table id='example-table' class=&quot;table table-striped&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;First Name&lt;/th&gt;
-      &lt;th&gt;Last Name&lt;/th&gt;
-      &lt;th data-override=&quot;Score&quot;&gt;Points&lt;/th&gt;&lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Jill&lt;/td&gt;
-      &lt;td&gt;Smith&lt;/td&gt;
-      &lt;td data-override=&quot;disqualified&quot;&gt;50&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Eve&lt;/td&gt;
-      &lt;td&gt;Jackson&lt;/td&gt;
-      &lt;td&gt;94&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;John&lt;/td&gt;
-      &lt;td&gt;Doe&lt;/td&gt;
-      &lt;td&gt;80&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Adam&lt;/td&gt;
-      &lt;td&gt;Johnson&lt;/td&gt;
-      &lt;td&gt;67&lt;/td&gt;&lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
+    <div class="container">
+      <div class="row center span10">
+        <h1>Demo</h1>
+        <table id='example-table' class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th data-override="Score">Points</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td data-override="disqualified">50</td></tr>
+            <tr>
+              <td>Eve</td>
+              <td>Jackson</td>
+              <td>94</td></tr>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>80</td></tr>
+            <tr>
+              <td>Adam</td>
+              <td>Johnson</td>
+              <td>67</td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" id="convert-table">Convert!</button>
+        <p>
+          <pre><code>
 &lt;script&gt;
 $('#convert-table').click( function() {
-  var table = $('#example-table').tableToJSON();
+  var table = $('#example-table').tableToJSON(); // Convert the table into a javascript object
+  console.log(table);
   alert(JSON.stringify(table));
 });
 &lt;/script&gt;
-  </code></pre>
-</p>
-
-
-      </section>
+          </code></pre>
+        </p>
+      </div>
+    
+      <div class="row span10">
+        <h1>Options</h1>
+        <ul>
+          <li><code>ignoreColumns</code>
+            <ul>
+              <li>Array of column indexes to ignore.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>[]</code></li>
+            </ul>
+          </li>
+          <li><code>onlyColumns</code>
+            <ul>
+              <li>Array of column indexes to include, all other columns are ignored. This takes presidence over ignoreColumns when provided.</li>
+              <li>This takes presidence over <code>ignoreColumns</code> when both are provided.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>null</code> - all columns</li>
+            </ul>
+          </li>
+          <li><code>ignoreHiddenRows</code>
+            <ul>
+              <li>Boolean if hidden rows should be ignored or not.</li>
+              <li>Type: <code>Boolean</code>
+              <li>Default: <code>true</code></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="row span10">
+        <h1>Features</h1>
+        <ul>
+          <li>Automatically finds column headings
+            <ul>
+              <li>Override found column headings by using <code>data-override="overridden column name"</code></li>
+              <li>Always uses first row as column headings regardless of th and td tags</li>
+            </ul>
+          </li>
+          <li>Override cell values column names by using <code>data-override="new value"</code></li>
+          <li>Ignorable columns</li>
+          <li>Not confused by nested tables</li>
+        </ul>
+      </div>
     </div>
-
+ 
     <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Table-to-JSON maintained by <a href="https://github.com/lightswitch05">lightswitch05</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="copyright">
+          Table-to-JSON &copy; <a href="https://github.com/lightswitch05">Daniel White</a> 2013.
+          Released under the <a href="https://github.com/lightswitch05/filterable/blob/master/MIT-LICENSE">MIT license</a>.
+        </p>
+      </div>
+    </footer>
     
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="javascripts/jquery.tabletojson.min.js"></script>
     <script src="javascripts/main.js"></script>
     <script type="text/javascript">
