@@ -13,10 +13,18 @@
   </head>
 
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <div class="container" style="padding-bottom:50px;">
       <div class="navbar navbar-inverse navbar-fixed-top">
       <a href="https://github.com/lightswitch05/table-to-json"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-        <div class="navbar-inner">
+        <div class="navbar-inner" style="height:40px;">
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
               <span class="icon-bar"></span>
@@ -27,6 +35,11 @@
                 <li><a href="https://github.com/lightswitch05/table-to-json">Github</a></li>
                 <li><a href="https://github.com/lightswitch05/table-to-json/issues">Issues</a></li>
                 <li><a href="http://www.developerdan.com/about">About Me</a></li>
+                <li style="margin-top:10px;"><div class="fb-like" data-href="http://lightswitch05.github.io/table-to-json" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-colorscheme="dark"></div></li>
+                <li style="margin-top:10px;margin-left:10px;">
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lightswitch05.github.io/table-to-json">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </li>
               </ul>
             </div><!--/.nav-collapse -->
           </div>
@@ -119,21 +132,29 @@ $('#convert-table').click( function() {
               <li>Default: <code>true</code></li>
             </ul>
           </li>
+          <li><code>headings</code>
+            <ul>
+              <li>Array of column headings to use. When supplied, all table rows are treated as values.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>null</code></li>
+            </ul>
+          </li>
         </ul>
       </div>
       
       <div class="row span10">
         <h2>Features</h2>
         <ul>
-          <li>Automatically finds column headings
+          <li>Automatically finds column headings.
             <ul>
-              <li>Override found column headings by using <code>data-override="overridden column name"</code></li>
-              <li>Always uses first row as column headings regardless of th and td tags</li>
+              <li>Override found column headings by using <code>data-override="overridden column name"</code>.</li>
+              <li>Always uses first row as column headings regardless of th and td tags.</li>
+              <li>Define headings using the <code>headings</code> option when a table doesn't have any specified headings.</li>
             </ul>
           </li>
-          <li>Override cell values column names by using <code>data-override="new value"</code></li>
-          <li>Ignorable columns</li>
-          <li>Not confused by nested tables</li>
+          <li>Override cell values column names by using <code>data-override="new value"</code>.</li>
+          <li>Ignorable columns.</li>
+          <li>Not confused by nested tables.</li>
         </ul>
       </div>
     </div>
