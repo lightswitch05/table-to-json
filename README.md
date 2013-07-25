@@ -25,8 +25,13 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - `ignoreHiddenRows`
   - Boolean if hidden rows should be ignored or not.
   - Default: `true`
+- `headings`
+  - Array of table headings to use. When supplied, treats entire table as values including the first `<tr>`
+  - Default: `null`
 
 ## Changes
+- 0.6.0
+  - Added `headings` option to define the headings of a table. When supplied, treats entire table as values.
 - 0.5.1
   - Halved execution time.
   - Added more JSHint requirements.
