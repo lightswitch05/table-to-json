@@ -5,7 +5,8 @@
     var defaults = {
       ignoreColumns: [],
       onlyColumns: null,
-      ignoreHiddenRows: true
+      ignoreHiddenRows: true,
+      headings: null
     };
     opts = $.extend(defaults, opts);
 
@@ -47,13 +48,13 @@
 
     var getHeadings = function(table) {
       var firstRow = table.find("tr:first").first();
-      return rowValues(firstRow);
+      return notNull(opts.headings) ? opts.headings : rowValues(firstRow);
     };
 
     var construct = function(table, headings) {
       var result = [];
       table.children("tbody,*").children("tr").each(function(rowIndex, row) {
-        if( rowIndex !== 0 ) {
+        if( rowIndex !== 0 || notNull(opts.headings) ) {
           if( $(row).is(":visible") || !opts.ignoreHiddenRows ) {
             result[result.length] = arraysToHash(headings, rowValues(row));
           }
@@ -67,4 +68,3 @@
     return construct(this, headings);
   };
 })( jQuery );
-
