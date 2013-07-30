@@ -1,4 +1,6 @@
 (function( $ ) {
+  'use strict';
+  
   $.fn.tableToJSON = function(opts) {
 
     // Set options
@@ -36,9 +38,9 @@
 
     var rowValues = function(row) {
       var result = [];
-      $(row).children("td,th").each(function(cellIndex, cell) {
+      $(row).children('td,th').each(function(cellIndex, cell) {
         if( !ignoredColumn(cellIndex) ) {
-          var override = $(cell).data("override");
+          var override = $(cell).data('override');
           var value = $.trim($(cell).text());
           result[ result.length ] = notNull(override) ? override : value;
         }
@@ -47,15 +49,15 @@
     };
 
     var getHeadings = function(table) {
-      var firstRow = table.find("tr:first").first();
+      var firstRow = table.find('tr:first').first();
       return notNull(opts.headings) ? opts.headings : rowValues(firstRow);
     };
 
     var construct = function(table, headings) {
       var result = [];
-      table.children("tbody,*").children("tr").each(function(rowIndex, row) {
+      table.children('tbody,*').children('tr').each(function(rowIndex, row) {
         if( rowIndex !== 0 || notNull(opts.headings) ) {
-          if( $(row).is(":visible") || !opts.ignoreHiddenRows ) {
+          if( $(row).is(':visible') || !opts.ignoreHiddenRows ) {
             result[result.length] = arraysToHash(headings, rowValues(row));
           }
         }
