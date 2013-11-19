@@ -91,3 +91,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
       //           {"Last Name"=>"Doe", "Score"=>"80"},
       //           {"Last Name"=>"Johnson", "Score"=>"67"}]
     </script>
+    
+### Looking for a server-side solution?
+
+[Colin Tremblay](https://github.com/tremblay) is working on a PHP implementation at [HTML-Table-To-JSON](https://github.com/tremblay/HTML-Table-to-JSON)
