@@ -27,22 +27,8 @@ module.exports = function(grunt) {
         dest : "lib/jquery.tabletojson.js"
       }
     },
-    lint : {
-      all : ["grunt.js", "src/*.js", "test/specs/*"]
-    },
-    min: {
-      "lib/jquery.tabletojson.min.js" : ["<banner>", "<banner>","lib/jquery.tabletojson.js"]
-    },
-    qunit: {
-      files: ["test/index.html"]
-    },
-    watch: {
-      scripts: {
-        files : "<config:lint.files>",
-        tasks : "default"
-      }
-    },
-    jshint: {
+    jshint : {
+      all : ["grunt.js", "src/*.js", "test/specs/*"],
       options: {
         curly     : true,
         eqeqeq    : true,
@@ -63,10 +49,29 @@ module.exports = function(grunt) {
         quotmark  : true,
         trailing  : true
       }
-    }
+    },
+    uglify: {
+      "lib/jquery.tabletojson.min.js" : ["<banner>", "<banner>","lib/jquery.tabletojson.js"]
+    },
+    qunit: {
+      files: ["test/index.html"]
+    },
+    watch: {
+      scripts: {
+        files : "<config:lint.files>",
+        tasks : "default"
+      }
+    },
+
   });
 
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  
   // Default task.
-  grunt.registerTask("default", "lint qunit concat min");
+  grunt.registerTask("default", ["jshint", "qunit", "concat", "uglify"]);
+  grunt.registerTask("test", ["jshint", "qunit"]);
 
 };
