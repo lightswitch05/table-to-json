@@ -9,7 +9,7 @@
       onlyColumns: null,
       ignoreHiddenRows: true,
       headings: null,
-      allowHTML: null
+      allowHTML: false
     };
     opts = $.extend(defaults, opts);
 
