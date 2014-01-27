@@ -42,7 +42,7 @@
       $(row).children('td,th').each(function(cellIndex, cell) {
         if( !ignoredColumn(cellIndex) ) {
           var override = $(cell).data('override');
-          if ( notNull(opts.allowHTML) ) {
+          if ( opts.allowHTML ) {
             value = $.trim($(cell).html());
           } else {
             value = $.trim($(cell).text());
