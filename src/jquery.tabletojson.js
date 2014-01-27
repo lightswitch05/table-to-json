@@ -8,7 +8,8 @@
       ignoreColumns: [],
       onlyColumns: null,
       ignoreHiddenRows: true,
-      headings: null
+      headings: null,
+      allowHTML: null
     };
     opts = $.extend(defaults, opts);
 
@@ -37,11 +38,15 @@
     };
 
     var rowValues = function(row) {
-      var result = [];
+      var result = [], value;
       $(row).children('td,th').each(function(cellIndex, cell) {
         if( !ignoredColumn(cellIndex) ) {
           var override = $(cell).data('override');
-          var value = $.trim($(cell).text());
+          if ( notNull(opts.allowHTML) ) {
+            value = $.trim($(cell).html());
+          } else {
+            value = $.trim($(cell).text());
+          }
           result[ result.length ] = notNull(override) ? override : value;
         }
       });
