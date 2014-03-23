@@ -28,8 +28,13 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - `headings`
   - Array of table headings to use. When supplied, treats entire table as values including the first `<tr>`
   - Default: `null`
+- `allowHTML`
+  - Boolean if HTML tags in table cells should be preserved
+  - Default: `false`
 
 ## Changes
+- 0.7.0
+  - Added `allowHTML` option to preserve HTML tags from table cells
 - 0.6.0
   - Added `headings` option to define the headings of a table. When supplied, treats entire table as values.
 - 0.5.1
