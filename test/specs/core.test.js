@@ -474,3 +474,40 @@ test('headings option works with onlyColumns option', function() {
                   {'Last Name':'Doe', 'Points':'80'}];
   deepEqual(table, expected);
 });
+
+/* allowHTML option allows HTML tags within a table to remain in the object */
+test('allowHTML option allows HTML tags within a table to remain in the object', function () {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+        '<td><strong>Jill</strong></td>' +
+        '<td><span class="lastName">Smith</span></td>' +
+        '<td><em>50</em></td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td><strong>Eve</strong></td>' +
+        '<td><span class="lastName">Jackson</span></td>' +
+        '<td><em>94</em></td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td><strong>John</strong></td>' +
+        '<td><span class="lastName">Doe</span></td>' +
+        '<td><em>80</em></td>' +
+      '</tr>' +
+    '</table>'
+  );
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+        allowHTML: true
+  });
+  var expected = [{'First Name':'<strong>Jill</strong>', 'Last Name':'<span class="lastName">Smith</span>', 'Points':'<em>50</em>'},
+                  {'First Name':'<strong>Eve</strong>', 'Last Name':'<span class="lastName">Jackson</span>', 'Points':'<em>94</em>'},
+                  {'First Name':'<strong>John</strong>', 'Last Name':'<span class="lastName">Doe</span>', 'Points':'<em>80</em>'}];
+  deepEqual(table, expected);
+});
