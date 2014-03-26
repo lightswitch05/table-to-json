@@ -32,24 +32,6 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - Boolean if HTML tags in table cells should be preserved
   - Default: `false`
 
-## Changes
-- 0.7.0
-  - Added `allowHTML` option to preserve HTML tags from table cells
-- 0.6.0
-  - Added `headings` option to define the headings of a table. When supplied, treats entire table as values.
-- 0.5.1
-  - Halved execution time.
-  - Added more JSHint requirements.
-- 0.5.0
-  - **The release breaks backwards compatibility for both option names and data-* attributes.**
-  - Changed option `ignoreColNum` to `ignoreColumns`.
-  - Merged `data-cell-value` and `data-column-name` into a single attribute: `data-override`.
-  - Added a new option `onlyColumns` to set which columns are included and ignores all others.
-- 0.4.0
-  - No longer requires the use of `th` elements - always uses the first row as column names.
-- 0.3.0
-  - Added tests and fixed many bugs.
-
 ## Example
 
     <table id='example-table'>
@@ -96,3 +78,11 @@ jQuery plugin to serialize HTML tables into javascript objects.
       //           {"Last Name"=>"Doe", "Score"=>"80"},
       //           {"Last Name"=>"Johnson", "Score"=>"67"}]
     </script>
+
+### Looking for a server-side solution?
+
+[Colin Tremblay](https://github.com/tremblay) is working on a PHP implementation at [HTML-Table-To-JSON](https://github.com/tremblay/HTML-Table-to-JSON)
+
+### Special Thanks
+* [imamathwiz](https://github.com/imamathwiz) for adding `allowHTML` option and various other changes.
+* [nenads](https://github.com/nenads) for adding `headings` option.
