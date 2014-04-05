@@ -14,10 +14,7 @@
     opts = $.extend(defaults, opts);
 
     var notNull = function(value) {
-      if(value !== undefined && value !== null) {
-        return true;
-      }
-      return false;
+      return value !== undefined && value !== null;
     };
 
     var ignoredColumn = function(index) {
@@ -28,26 +25,37 @@
     };
 
     var arraysToHash = function(keys, values) {
-      var result = {};
-      $.each(values, function(index, value) {
-        if( index < keys.length ) {
+      var result = {}, index = 0;
+      $.each(values, function(i, value) {
+        // when ignoring columns, the header option still starts
+        // with the first defined column
+        if( index < keys.length && notNull(value) ) {
           result[ keys[index] ] = value;
+          index++;
         }
       });
       return result;
     };
 
+    var cellValues = function(cellIndex, cell) {
+      var value, result;
+      if( !ignoredColumn(cellIndex) ) {
+        var override = $(cell).data('override');
+        if ( opts.allowHTML ) {
+          value = $.trim($(cell).html());
+        } else {
+          value = $.trim($(cell).text());
+        }
+        result = notNull(override) ? override : value;
+      }
+      return result;
+    };
+
     var rowValues = function(row) {
-      var result = [], value;
+      var result = [];
       $(row).children('td,th').each(function(cellIndex, cell) {
-        if( !ignoredColumn(cellIndex) ) {
-          var override = $(cell).data('override');
-          if ( opts.allowHTML ) {
-            value = $.trim($(cell).html());
-          } else {
-            value = $.trim($(cell).text());
-          }
-          result[ result.length ] = notNull(override) ? override : value;
+        if ( !ignoredColumn(cellIndex) ) {
+          result.push( cellValues(cellIndex, cell) );
         }
       });
       return result;
@@ -59,12 +67,57 @@
     };
 
     var construct = function(table, headings) {
-      var result = [];
+      var i, len, txt, $row, $cell,
+        tmpArray = [], cellIndex = 0, result = [];
       table.children('tbody,*').children('tr').each(function(rowIndex, row) {
-        if( rowIndex !== 0 || notNull(opts.headings) ) {
-          if( $(row).is(':visible') || !opts.ignoreHiddenRows ) {
-            result[result.length] = arraysToHash(headings, rowValues(row));
+        if( rowIndex > 0 || notNull(opts.headings) ) {
+          $row = $(row);
+          if( $row.is(':visible') || !opts.ignoreHiddenRows ) {
+            if (!tmpArray[rowIndex]) {
+              tmpArray[rowIndex] = [];
+            }
+            cellIndex = 0;
+            $row.children().each(function(){
+              if (!ignoredColumn(cellIndex)) {
+                $cell = $(this);
+  
+                // process rowspans
+                if ($cell.filter('[rowspan]').length) {
+                  len = parseInt( $cell.attr('rowspan'), 10) - 1;
+                  cellIndex = this.cellIndex;
+                  txt = cellValues(cellIndex, $cell, []);
+                  for (i = 1; i <= len; i++) {
+                    if (!tmpArray[rowIndex + i]) { tmpArray[rowIndex + i] = []; }
+                    tmpArray[rowIndex + i][cellIndex] = txt;
+                  }
+                }
+                // process colspans
+                if ($cell.filter('[colspan]').length) {
+                  len = parseInt( $cell.attr('colspan'), 10) - 1;
+                  cellIndex = this.cellIndex;
+                  txt = cellValues(cellIndex, $cell, []);
+                  for (i = 1; i <= len; i++) {
+                    tmpArray[rowIndex][cellIndex + i] = txt;
+                  }
+                }
+                // skip column if already defined
+                while (tmpArray[rowIndex][cellIndex]) { cellIndex++; }
+                if (!ignoredColumn(cellIndex)) {
+                  txt = tmpArray[rowIndex][cellIndex] || cellValues(cellIndex, $cell, []);
+                  if (notNull(txt)) {
+                    tmpArray[rowIndex][cellIndex] = txt;
+                  }
+                }
+              }
+              cellIndex++;
+            });
           }
+        }
+      });
+      $.each(tmpArray, function( i, row ){
+        if (notNull(row)) {
+          txt = arraysToHash(headings, row);
+          result[result.length] = txt;
         }
       });
       return result;
