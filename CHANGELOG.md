@@ -1,3 +1,9 @@
+## 2014-4-6 - Release 0.8.0
+* Added `colspan` & `rowspan` support.
+* Fixed missing license banner.
+* Updated Grunt plugins.
+* Added more JSHint requirements and cleaned code.
+
 ## 2014-3-26 - Release 0.7.0
 * Added `allowHTML` option to preserve HTML tags from table cells.
 * Fixed Travis & Grunt tests.

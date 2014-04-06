@@ -86,3 +86,4 @@ jQuery plugin to serialize HTML tables into javascript objects.
 ### Special Thanks
 * [imamathwiz](https://github.com/imamathwiz) for adding `allowHTML` option and various other changes.
 * [nenads](https://github.com/nenads) for adding `headings` option.
+* [Mottie](https://github.com/Mottie) for adding `rowspan` & `colspan` support.
