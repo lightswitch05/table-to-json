@@ -194,3 +194,30 @@ test('complex table', function() {
   var expected = [{'id':'oaWd4cs2JHY660pG', 'State':'INCOMPLETE', 'BCS':'location', 'ZONE':'1', 'TIER':'QTY', 'INSTALL_CALC':'B', 'INSTALL_R1':'9.5'}];
   deepEqual(table, expected);
 });
+
+/* A table with rowspan & colspan */
+test('rowspan & colspan in tbody', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+      '<tr><th>line</th><th>value1</th><th>value2</th></tr>' +
+      '<tr><td rowspan="2">1</td><td>1.1</td><td>1.2</td></tr>' +
+      '<tr><td>1.3</td><td>1.4</td></tr>' +
+      '<tr><td rowspan="2">2</td><td>2.1</td><td>2.2</td></tr>' +
+      '<tr><td>2.3</td><td>2.4</td></tr>' +
+      '<tr><td rowspan="2">3</td><td>3.1</td><td>3.2</td></tr>' +
+      '<tr><td colspan="2">3.3</td></tr>' +
+      '</table>'
+    );
+
+  expect(1);
+  var table = $('#test-table').tableToJSON();
+  var expected = [
+    {'line':'1','value1':'1.1','value2':'1.2'},
+    {'line':'1','value1':'1.3','value2':'1.4'},
+    {'line':'2','value1':'2.1','value2':'2.2'},
+    {'line':'2','value1':'2.3','value2':'2.4'},
+    {'line':'3','value1':'3.1','value2':'3.2'},
+    {'line':'3','value1':'3.3','value2':'3.3'}
+  ];
+  deepEqual(table, expected);
+});
