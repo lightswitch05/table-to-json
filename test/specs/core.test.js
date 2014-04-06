@@ -180,40 +180,42 @@ test('ignore columns', function() {
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        ignoreColumns: [0]
+    ignoreColumns: [0]
   });
-  var expected = [{'Last Name':'Smith', 'Points':'50'},
-                  {'Last Name':'Jackson', 'Points':'94'},
-                  {'Last Name':'Doe', 'Points':'80'}];
+  var expected = [
+    {'Last Name':'Smith', 'Points':'50'},
+    {'Last Name':'Jackson', 'Points':'94'},
+    {'Last Name':'Doe', 'Points':'80'}
+  ];
   deepEqual(table, expected);
 });
 
 /* Ignore Hidden Row */
 test('ignore hidden rows', function() {
   $('#qunit-fixture').html(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<th>First Name</th>' +
-          '<th>Last Name</th>' +
-          '<th>Points</th>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Jill</td>' +
-          '<td>Smith</td>' +
-          '<td>50</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Eve</td>' +
-          '<td>Jackson</td>' +
-          '<td>94</td>' +
-        '</tr>' +
-        '<tr style="display: none;">' +
-          '<td>John</td>' +
-          '<td>Doe</td>' +
-          '<td>80</td>' +
-        '</tr>' +
-      '</table>'
-    );
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr style="display: none;">' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
 
 
   expect(1);
@@ -253,7 +255,7 @@ test('Include Hidden Rows', function() {
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        ignoreHiddenRows: false
+    ignoreHiddenRows: false
   });
   var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
                   {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
@@ -327,151 +329,161 @@ test('Ony include 1 column', function() {
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        onlyColumns: [0]
+    onlyColumns: [0]
   });
-  var expected = [{'First Name':'Jill'},
-                  {'First Name':'Eve'},
-                  {'First Name':'John'}];
+  var expected = [
+    {'First Name':'Jill'},
+    {'First Name':'Eve'},
+    {'First Name':'John'}
+  ];
   deepEqual(table, expected);
 });
 
 /* onlyColumns option overrides ignoreColumns option */
 test('onlyColumns option overrides ignoreColumns option', function() {
   $('#qunit-fixture').html(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<th>First Name</th>' +
-          '<th>Last Name</th>' +
-          '<th>Points</th>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Jill</td>' +
-          '<td>Smith</td>' +
-          '<td>50</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Eve</td>' +
-          '<td>Jackson</td>' +
-          '<td>94</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>John</td>' +
-          '<td>Doe</td>' +
-          '<td>80</td>' +
-        '</tr>' +
-      '</table>'
-    );
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        onlyColumns: [0, 1],
-        ignoreColumns: [0, 1]
+    onlyColumns: [0, 1],
+    ignoreColumns: [0, 1]
   });
-  var expected = [{'First Name':'Jill', 'Last Name':'Smith'},
-                  {'First Name':'Eve', 'Last Name':'Jackson'},
-                  {'First Name':'John', 'Last Name':'Doe'}];
+  var expected = [
+    {'First Name':'Jill', 'Last Name':'Smith'},
+    {'First Name':'Eve', 'Last Name':'Jackson'},
+    {'First Name':'John', 'Last Name':'Doe'}
+  ];
   deepEqual(table, expected);
 });
 
 /* headings option uses all rows as data */
 test('headings option uses all rows as data', function() {
   $('#qunit-fixture').html(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<td>Jill</td>' +
-          '<td>Smith</td>' +
-          '<td>50</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Eve</td>' +
-          '<td>Jackson</td>' +
-          '<td>94</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>John</td>' +
-          '<td>Doe</td>' +
-          '<td>80</td>' +
-        '</tr>' +
-      '</table>'
-    );
+    '<table id="test-table">' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        headings: ['First Name', 'Last Name', 'Points']
+    headings: ['First Name', 'Last Name', 'Points']
   });
-  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
-                  {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
-                  {'First Name':'John', 'Last Name':'Doe', 'Points':'80'}];
+  var expected = [
+    {'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'First Name':'John', 'Last Name':'Doe', 'Points':'80'}
+  ];
   deepEqual(table, expected);
 });
 
 /* headings option works with ignoreColumns option */
 test('headings option works with ignoreColumns option', function() {
   $('#qunit-fixture').html(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<td>Jill</td>' +
-          '<td>Smith</td>' +
-          '<td>50</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Eve</td>' +
-          '<td>Jackson</td>' +
-          '<td>94</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>John</td>' +
-          '<td>Doe</td>' +
-          '<td>80</td>' +
-        '</tr>' +
-      '</table>'
-    );
+    '<table id="test-table">' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        ignoreColumns: [0],
-        headings: ['Last Name', 'Points']
+    ignoreColumns: [0],
+    headings: ['Last Name', 'Points']
   });
-  var expected = [{'Last Name':'Smith', 'Points':'50'},
-                  {'Last Name':'Jackson', 'Points':'94'},
-                  {'Last Name':'Doe', 'Points':'80'}];
+  var expected = [
+    {'Last Name':'Smith', 'Points':'50'},
+    {'Last Name':'Jackson', 'Points':'94'},
+    {'Last Name':'Doe', 'Points':'80'}
+  ];
   deepEqual(table, expected);
 });
 
 /* headings option works with onlyColumns option */
 test('headings option works with onlyColumns option', function() {
   $('#qunit-fixture').html(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<td>Jill</td>' +
-          '<td>Smith</td>' +
-          '<td>50</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>Eve</td>' +
-          '<td>Jackson</td>' +
-          '<td>94</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<td>John</td>' +
-          '<td>Doe</td>' +
-          '<td>80</td>' +
-        '</tr>' +
-      '</table>'
-    );
+    '<table id="test-table">' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        onlyColumns: [1, 2],
-        headings: ['Last Name', 'Points']
+    onlyColumns: [1, 2],
+    headings: ['Last Name', 'Points']
   });
-  var expected = [{'Last Name':'Smith', 'Points':'50'},
-                  {'Last Name':'Jackson', 'Points':'94'},
-                  {'Last Name':'Doe', 'Points':'80'}];
+  var expected = [
+    {'Last Name':'Smith', 'Points':'50'},
+    {'Last Name':'Jackson', 'Points':'94'},
+    {'Last Name':'Doe', 'Points':'80'}
+  ];
   deepEqual(table, expected);
 });
 
@@ -504,10 +516,12 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-        allowHTML: true
+    allowHTML: true
   });
-  var expected = [{'First Name':'<strong>Jill</strong>', 'Last Name':'<span class="lastName">Smith</span>', 'Points':'<em>50</em>'},
-                  {'First Name':'<strong>Eve</strong>', 'Last Name':'<span class="lastName">Jackson</span>', 'Points':'<em>94</em>'},
-                  {'First Name':'<strong>John</strong>', 'Last Name':'<span class="lastName">Doe</span>', 'Points':'<em>80</em>'}];
+  var expected = [
+    {'First Name':'<strong>Jill</strong>', 'Last Name':'<span class="lastName">Smith</span>', 'Points':'<em>50</em>'},
+    {'First Name':'<strong>Eve</strong>', 'Last Name':'<span class="lastName">Jackson</span>', 'Points':'<em>94</em>'},
+    {'First Name':'<strong>John</strong>', 'Last Name':'<span class="lastName">Doe</span>', 'Points':'<em>80</em>'}
+  ];
   deepEqual(table, expected);
 });

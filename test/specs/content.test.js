@@ -212,11 +212,12 @@ test('rowspan & colspan in tbody', function() {
   expect(1);
   var table = $('#test-table').tableToJSON();
   var expected = [
-      {'line':'1','value1':'1.1','value2':'1.2'},
-      {'line':'1','value1':'1.3','value2':'1.4'},
-      {'line':'2','value1':'2.1','value2':'2.2'},
-      {'line':'2','value1':'2.3','value2':'2.4'},
-      {'line':'3','value1':'3.1','value2':'3.2'},
-      {'line':'3','value1':'3.3','value2':'3.3'}];
+    {'line':'1','value1':'1.1','value2':'1.2'},
+    {'line':'1','value1':'1.3','value2':'1.4'},
+    {'line':'2','value1':'2.1','value2':'2.2'},
+    {'line':'2','value1':'2.3','value2':'2.4'},
+    {'line':'3','value1':'3.1','value2':'3.2'},
+    {'line':'3','value1':'3.3','value2':'3.3'}
+  ];
   deepEqual(table, expected);
 });
