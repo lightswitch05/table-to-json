@@ -1,3 +1,6 @@
+## 2014-4-14 - Release 0.8.3
+* Updated to correct version number.
+
 ## 2014-4-14 - Release 0.8.2
 * Updated `onlyColumns` & `ignoreColumns` to work with colspans ([demo](http://jsfiddle.net/Mottie/4E2L6/10/)).
 
