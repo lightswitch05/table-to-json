@@ -1,6 +1,6 @@
 (function( $ ) {
   'use strict';
-  
+
   $.fn.tableToJSON = function(opts) {
 
     // Set options
@@ -29,7 +29,7 @@
       $.each(values, function(i, value) {
         // when ignoring columns, the header option still starts
         // with the first defined column
-        if( index < keys.length && notNull(value) ) {
+        if ( index < keys.length && notNull(value) ) {
           result[ keys[index] ] = value;
           index++;
         }
@@ -39,24 +39,20 @@
 
     var cellValues = function(cellIndex, cell) {
       var value, result;
-      if( !ignoredColumn(cellIndex) ) {
-        var override = $(cell).data('override');
-        if ( opts.allowHTML ) {
-          value = $.trim($(cell).html());
-        } else {
-          value = $.trim($(cell).text());
-        }
-        result = notNull(override) ? override : value;
+      var override = $(cell).data('override');
+      if ( opts.allowHTML ) {
+        value = $.trim($(cell).html());
+      } else {
+        value = $.trim($(cell).text());
       }
+      result = notNull(override) ? override : value;
       return result;
     };
 
     var rowValues = function(row) {
       var result = [];
       $(row).children('td,th').each(function(cellIndex, cell) {
-        if ( !ignoredColumn(cellIndex) ) {
-          result.push( cellValues(cellIndex, cell) );
-        }
+        result.push( cellValues(cellIndex, cell) );
       });
       return result;
     };
@@ -78,42 +74,38 @@
             }
             cellIndex = 0;
             $row.children().each(function(){
-              if (!ignoredColumn(cellIndex)) {
-                $cell = $(this);
-  
-                // process rowspans
-                if ($cell.filter('[rowspan]').length) {
-                  len = parseInt( $cell.attr('rowspan'), 10) - 1;
-                  txt = cellValues(cellIndex, $cell, []);
-                  for (i = 1; i <= len; i++) {
-                    if (!tmpArray[rowIndex + i]) { tmpArray[rowIndex + i] = []; }
-                    tmpArray[rowIndex + i][cellIndex] = txt;
-                  }
+              $cell = $(this);
+
+              // process rowspans
+              if ($cell.filter('[rowspan]').length) {
+                len = parseInt( $cell.attr('rowspan'), 10) - 1;
+                txt = cellValues(cellIndex, $cell, []);
+                for (i = 1; i <= len; i++) {
+                  if (!tmpArray[rowIndex + i]) { tmpArray[rowIndex + i] = []; }
+                  tmpArray[rowIndex + i][cellIndex] = txt;
                 }
-                // process colspans
-                if ($cell.filter('[colspan]').length) {
-                  len = parseInt( $cell.attr('colspan'), 10) - 1;
-                  txt = cellValues(cellIndex, $cell, []);
-                  for (i = 1; i <= len; i++) {
-                    // cell has both col and row spans
-                    if ($cell.filter('[rowspan]').length) {
-                      len2 = parseInt( $cell.attr('rowspan'), 10);
-                      for (j = 0; j < len2; j++) {
-                        tmpArray[rowIndex + j][cellIndex + i] = txt;
-                      }
-                    } else {
-                      tmpArray[rowIndex][cellIndex + i] = txt;
+              }
+              // process colspans
+              if ($cell.filter('[colspan]').length) {
+                len = parseInt( $cell.attr('colspan'), 10) - 1;
+                txt = cellValues(cellIndex, $cell, []);
+                for (i = 1; i <= len; i++) {
+                  // cell has both col and row spans
+                  if ($cell.filter('[rowspan]').length) {
+                    len2 = parseInt( $cell.attr('rowspan'), 10);
+                    for (j = 0; j < len2; j++) {
+                      tmpArray[rowIndex + j][cellIndex + i] = txt;
                     }
+                  } else {
+                    tmpArray[rowIndex][cellIndex + i] = txt;
                   }
                 }
-                // skip column if already defined
-                while (tmpArray[rowIndex][cellIndex]) { cellIndex++; }
-                if (!ignoredColumn(cellIndex)) {
-                  txt = tmpArray[rowIndex][cellIndex] || cellValues(cellIndex, $cell, []);
-                  if (notNull(txt)) {
-                    tmpArray[rowIndex][cellIndex] = txt;
-                  }
-                }
+              }
+              // skip column if already defined
+              while (tmpArray[rowIndex][cellIndex]) { cellIndex++; }
+              txt = tmpArray[rowIndex][cellIndex] || cellValues(cellIndex, $cell, []);
+              if (notNull(txt)) {
+                tmpArray[rowIndex][cellIndex] = txt;
               }
               cellIndex++;
             });
@@ -122,7 +114,15 @@
       });
       $.each(tmpArray, function( i, row ){
         if (notNull(row)) {
-          txt = arraysToHash(headings, row);
+          // remove ignoredColumns / add onlyColumns
+          var newRow = notNull(opts.onlyColumns) || opts.ignoreColumns.length ?
+            $.grep(row, function(v, index){ return !ignoredColumn(index); }) : row,
+
+            // remove ignoredColumns / add onlyColumns if headings is not defined
+            newHeadings = notNull(opts.headings) ? headings :
+              $.grep(headings, function(v, index){ return !ignoredColumn(index); });
+
+          txt = arraysToHash(newHeadings, newRow);
           result[result.length] = txt;
         }
       });
