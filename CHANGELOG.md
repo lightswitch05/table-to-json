@@ -1,3 +1,6 @@
+## 2014-4-14 - Release 0.8.2
+* Updated `onlyColumns` & `ignoreColumns` to work with colspans ([demo](http://jsfiddle.net/Mottie/4E2L6/10/)).
+
 ## 2014-4-13 - Release 0.8.1
 * Added basic `.gitattributes` file.
 * Updated `colspan` & `rowspan` support to work when applied to the same cell ([demo](http://jsfiddle.net/Mottie/4E2L6/9/)).
