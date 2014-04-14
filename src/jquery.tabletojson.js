@@ -67,7 +67,7 @@
     };
 
     var construct = function(table, headings) {
-      var i, len, txt, $row, $cell,
+      var i, j, len, len2, txt, $row, $cell,
         tmpArray = [], cellIndex = 0, result = [];
       table.children('tbody,*').children('tr').each(function(rowIndex, row) {
         if( rowIndex > 0 || notNull(opts.headings) ) {
@@ -84,7 +84,6 @@
                 // process rowspans
                 if ($cell.filter('[rowspan]').length) {
                   len = parseInt( $cell.attr('rowspan'), 10) - 1;
-                  cellIndex = this.cellIndex;
                   txt = cellValues(cellIndex, $cell, []);
                   for (i = 1; i <= len; i++) {
                     if (!tmpArray[rowIndex + i]) { tmpArray[rowIndex + i] = []; }
@@ -94,10 +93,17 @@
                 // process colspans
                 if ($cell.filter('[colspan]').length) {
                   len = parseInt( $cell.attr('colspan'), 10) - 1;
-                  cellIndex = this.cellIndex;
                   txt = cellValues(cellIndex, $cell, []);
                   for (i = 1; i <= len; i++) {
-                    tmpArray[rowIndex][cellIndex + i] = txt;
+                    // cell has both col and row spans
+                    if ($cell.filter('[rowspan]').length) {
+                      len2 = parseInt( $cell.attr('rowspan'), 10);
+                      for (j = 0; j < len2; j++) {
+                        tmpArray[rowIndex + j][cellIndex + i] = txt;
+                      }
+                    } else {
+                      tmpArray[rowIndex][cellIndex + i] = txt;
+                    }
                   }
                 }
                 // skip column if already defined
