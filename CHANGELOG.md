@@ -1,3 +1,7 @@
+## 2014-4-13 - Release 0.8.1
+* Added basic `.gitattributes` file.
+* Updated `colspan` & `rowspan` support to work when applied to the same cell ([demo](http://jsfiddle.net/Mottie/4E2L6/9/)).
+
 ## 2014-4-6 - Release 0.8.0
 * Added `colspan` & `rowspan` support.
 * Fixed missing license banner.
