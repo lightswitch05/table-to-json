@@ -6,6 +6,7 @@
     // Set options
     var defaults = {
       ignoreColumns: [],
+      ignoreRows: [],
       onlyColumns: null,
       ignoreHiddenRows: true,
       headings: null,
@@ -66,7 +67,7 @@
       var i, j, len, len2, txt, $row, $cell,
         tmpArray = [], cellIndex = 0, result = [];
       table.children('tbody,*').children('tr').each(function(rowIndex, row) {
-        if( rowIndex > 0 || notNull(opts.headings) ) {
+        if($.inArray(rowIndex, opts.ignoreRows) === -1){
           $row = $(row);
           if( $row.is(':visible') || !opts.ignoreHiddenRows ) {
             if (!tmpArray[rowIndex]) {
