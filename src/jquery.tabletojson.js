@@ -1,3 +1,18 @@
+(function($) {
+	    $.extend({
+	        toDictionary: function(query) {
+	            var parms = {};
+	            var items = query.split("&"); // split
+            for (var i = 0; i < items.length; i++) {
+                var values = items[i].split("=");
+                var key = decodeURIComponent(values.shift());
+                var value = values.join("=");
+            }
+            return decodeURIComponent(value);
+        }
+    })
+})(jQuery);
+
 (function( $ ) {
   'use strict';
 
@@ -9,7 +24,9 @@
       onlyColumns: null,
       ignoreHiddenRows: true,
       headings: null,
-      allowHTML: false
+      allowHTML: false,
+      formatHeader: false,
+      allValueTag: false
     };
     opts = $.extend(defaults, opts);
 
@@ -25,15 +42,25 @@
     };
 
     var arraysToHash = function(keys, values) {
+    	var keysFormat = new Array();
+    	$.each(keys, function(i, v) {
+    		if(opts.formatHeader) {
+    			keysFormat.push(replace(v));
+    		} else {
+    			keysFormat.push(v);
+    		}
+    	});    	
+    	
       var result = {}, index = 0;
       $.each(values, function(i, value) {
         // when ignoring columns, the header option still starts
         // with the first defined column
-        if ( index < keys.length && notNull(value) ) {
-          result[ keys[index] ] = value;
+        if ( index < keysFormat.length && notNull(value) ) {
+          result[ keysFormat[index] ] = value;
           index++;
         }
       });
+     
       return result;
     };
 
@@ -43,11 +70,33 @@
       if ( opts.allowHTML ) {
         value = $.trim($(cell).html());
       } else {
-        value = $.trim($(cell).text());
+    	  if(opts.allValueTag) {
+	    	  var select = $(cell).find('select option:selected').val();    	  
+	          if($.trim($(cell).text()) == "" || select != undefined) {
+	              var serialized = $(cell).find('input, textarea, select').serialize();
+	              var item = $.toDictionary(serialized);
+	              value = item;
+	          } else {
+	        	  value = $.trim($(cell).text());
+	          }
+    	  } else {
+    		  value = $.trim($(cell).text());
+    	  }
       }
       result = notNull(override) ? override : value;
       return result;
     };
+    
+    var replace = function(firstRow) {
+    	if(jQuery.type(firstRow) === "string") {
+	    	var result =  firstRow.replace(/[áàâãª]/g, 'a').replace(/[ÁÀÂÃ]/g, 'A')
+	    			.replace(/[éèêë]/g, 'e').replace(/[ÉÈÊË]/g, 'E').replace(/[íìî]/g, 'i').replace(/[ÍÌÎ]/g, 'I')
+	    			.replace(/[ÓÒÔÕ]/g, 'O').replace(/[óòôõº]/g, 'o').replace(/[úùû]/g, 'u')
+	    			.replace(/[ÚÙÛÜ]/g, 'U').replace(/[ç]/g, 'c').replace(/[Ç]/g, 'C').replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');
+	    	
+    	}    	
+    	return result;
+    }
 
     var rowValues = function(row) {
       var result = [];
@@ -121,7 +170,7 @@
             // remove ignoredColumns / add onlyColumns if headings is not defined
             newHeadings = notNull(opts.headings) ? headings :
               $.grep(headings, function(v, index){ return !ignoredColumn(index); });
-
+            
           txt = arraysToHash(newHeadings, newRow);
           result[result.length] = txt;
         }
