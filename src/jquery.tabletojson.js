@@ -170,7 +170,7 @@
             // remove ignoredColumns / add onlyColumns if headings is not defined
             newHeadings = notNull(opts.headings) ? headings :
               $.grep(headings, function(v, index){ return !ignoredColumn(index); });
-            
+
           txt = arraysToHash(newHeadings, newRow);
           result[result.length] = txt;
         }
