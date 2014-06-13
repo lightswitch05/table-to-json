@@ -36,7 +36,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - Boolean to format the header removing spaces and special characters
   - Default: `false`
 - `allValueTag`
-  - Boolean get values in input, select and textarea inside all <td> tags
+  - Boolean get values in input, select and textarea inside all `<td>` tags
   - Default: `false`
 
 ## Example
