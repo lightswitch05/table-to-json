@@ -32,6 +32,12 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - `allowHTML`
   - Boolean if HTML tags in table cells should be preserved
   - Default: `false`
+- `formatHeader`
+  - Boolean to format the header removing spaces and special characters
+  - Default: `false`
+- `allValueTag`
+  - Boolean get values in input, select and textarea inside all <td> tags
+  - Default: `false`
 
 ## Example
 
@@ -69,16 +75,17 @@ jQuery plugin to serialize HTML tables into javascript objects.
   // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"disqualified"},
   //           {"First Name"=>"Eve", "Last Name"=>"Jackson", "Score"=>"94"},
   //           {"First Name"=>"John", "Last Name"=>"Doe", "Score"=>"80"},
-  //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>"67"}]
+  //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>""}]
 
   // Ignore first column (name)
   var table = $('#example-table').tableToJSON({
-        ignoreColumns: [0]
+        ignoreColumns: [0],
+        formatHeader: true
   });
-  // table == [{"Last Name"=>"Smith", "Score"=>"disqualified"},
-  //           {"Last Name"=>"Jackson", "Score"=>"94"},
-  //           {"Last Name"=>"Doe", "Score"=>"80"},
-  //           {"Last Name"=>"Johnson", "Score"=>"67"}]
+  // table == [{"LastName"=>"Smith", "Score"=>"disqualified"},
+  //           {"LastName"=>"Jackson", "Score"=>"94"},
+  //           {"LastName"=>"Doe", "Score"=>"80"},
+  //           {"LastName"=>"Johnson", "Score"=>""}]
 </script>
 ```
 
