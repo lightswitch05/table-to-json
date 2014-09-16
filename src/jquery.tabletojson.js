@@ -83,6 +83,7 @@
             }
              if (opts.addRowID)
                 {
+                  cellIndex++;
                   if (typeof $row.attr("id") !== "undefined") {
                              tmpArray[rowIndex].push($row.attr("id"));
                       } else
