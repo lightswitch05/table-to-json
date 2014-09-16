@@ -52,13 +52,13 @@
 
     var rowValues = function(row) {
       var result = [];
-       if (opts.addRowID) {
-            if (typeof $(row).attr("id") !== "undefined") {
-                        } else
-                        {
-                            result.push("_id_");
-                        }
-            }
+      if (opts.addRowID) {
+    	  if (typeof $(row).attr("id") !== "undefined") {
+    	  } else
+    	  {
+    		  result.push("__id__");
+    	  }
+      }
       $(row).children('td,th').each(function(cellIndex, cell) {
         result.push( cellValues(cellIndex, cell) );
       });
@@ -81,16 +81,16 @@
             if (!tmpArray[rowIndex]) {
               tmpArray[rowIndex] = [];
             }
-             if (opts.addRowID)
-                {
-                  cellIndex++;
-                  if (typeof $row.attr("id") !== "undefined") {
-                             tmpArray[rowIndex].push($row.attr("id"));
-                      } else
-                      {
-                          tmpArray[rowIndex].push("");
-                      }
-                }
+            if (opts.addRowID)
+            {
+            	cellIndex++;
+            	if (typeof $row.attr("id") !== "undefined") {
+            		tmpArray[rowIndex].push($row.attr("id"));
+            	} else
+            	{
+            		tmpArray[rowIndex].push("");
+            	}
+            }
         
             $row.children().each(function(){
               $cell = $(this);
