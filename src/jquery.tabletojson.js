@@ -53,9 +53,9 @@
     var rowValues = function(row) {
       var result = [];
       if (opts.addRowID) {
-          if (typeof $(row).attr('id') === 'undefined') {
-              result.push('__id__');
-          }
+        if (typeof $(row).attr('id') === 'undefined') {
+          result.push('__id__');
+        }
       }
       $(row).children('td,th').each(function(cellIndex, cell) {
         result.push( cellValues(cellIndex, cell) );
@@ -80,12 +80,12 @@
               tmpArray[rowIndex] = [];
             }
             if (opts.addRowID) {
-                cellIndex++;
-                if (typeof $row.attr('id') !== 'undefined') {
-                    tmpArray[rowIndex].push($row.attr('id'));
-                } else {
-                    tmpArray[rowIndex].push('');
-                }
+              cellIndex = cellIndex + 1;
+              if (typeof $row.attr('id') !== 'undefined') {
+                tmpArray[rowIndex].push($row.attr('id'));
+              } else {
+                tmpArray[rowIndex].push('');
+              }
             }
         
             $row.children().each(function(){
