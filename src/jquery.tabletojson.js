@@ -89,7 +89,7 @@
               if (typeof $row.attr('id') !== 'undefined') {
                 tmpArray[rowIndex].push($row.attr('id'));
               } else {
-                tmpArray[rowIndex].push(null);
+                tmpArray[rowIndex].push('');
               }
             }
         
