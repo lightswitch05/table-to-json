@@ -10,7 +10,8 @@
       ignoreHiddenRows: true,
       headings: null,
       allowHTML: false,
-      addRowID: false
+      addRowID: false,
+      rowIdName: '__id__'
     };
     opts = $.extend(defaults, opts);
 
@@ -54,7 +55,7 @@
       var result = [];
       if (opts.addRowID) {
         if (typeof $(row).attr('id') === 'undefined') {
-          result.push('__id__');
+          result.push(opts.rowIdName);
         }
       }
       $(row).children('td,th').each(function(cellIndex, cell) {
