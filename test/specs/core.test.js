@@ -526,8 +526,8 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
   deepEqual(table, expected);
 });
 
-/* addRowID option places the attribute ID from the row as a property of the row */
-test('addRowID option places the attribute ID from the row as a property of the row', function () {
+/* includeRowId option boolean type places the attribute ID from the row as a property of the row */
+test('includeRowId option boolean type places the attribute ID from the row as a property of the row', function () {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
       '<tr>' +
@@ -560,19 +560,19 @@ test('addRowID option places the attribute ID from the row as a property of the 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-    addRowID: true
+    includeRowId: true
   });
   var expected = [
-    {'__id__':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
-    {'__id__':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
-    {'__id__':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'__id__':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'rowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'rowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'rowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
+    {'rowId':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
   ];
   deepEqual(table, expected);
 });
 
-/* rowIdName option is used in conjuntion with addRowID, rowIDName defines what the property name will be. */
-test('addRowID option places the attribute ID from the row as a property of the row', function () {
+/* includeRowId option custom, instead of a boolean use a string, and string value will be the property name. */
+test('includeRowId option string type, instead of a boolean use a string, and string value will be the property name', function () {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
       '<tr>' +
@@ -605,14 +605,13 @@ test('addRowID option places the attribute ID from the row as a property of the 
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-    addRowID: true,
-    rowIdName: 'RowId'
+    includeRowId: 'customIDname'
   });
   var expected = [
-    {'RowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
-    {'RowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
-    {'RowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'RowId':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'customIDname':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'customIDname':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'customIDname':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
+    {'customIDname':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
   ];
   deepEqual(table, expected);
 });
