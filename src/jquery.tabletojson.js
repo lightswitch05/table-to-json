@@ -9,10 +9,11 @@
       onlyColumns: null,
       ignoreHiddenRows: true,
       headings: null,
-      allowHTML: false
+      allowHTML: false,
+      includeRowId : false
     };
     opts = $.extend(defaults, opts);
-
+    
     var notNull = function(value) {
       return value !== undefined && value !== null;
     };
@@ -51,6 +52,14 @@
 
     var rowValues = function(row) {
       var result = [];
+      var includeRowId = opts.includeRowId;
+      var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string') ? true : false;
+      var rowIdName = (typeof includeRowId === 'string') === true ? includeRowId : 'rowId';
+      if (useRowId) {
+        if (typeof $(row).attr('id') === 'undefined') {
+          result.push(rowIdName);
+        }
+      }
       $(row).children('td,th').each(function(cellIndex, cell) {
         result.push( cellValues(cellIndex, cell) );
       });
@@ -67,12 +76,23 @@
         tmpArray = [], cellIndex = 0, result = [];
       table.children('tbody,*').children('tr').each(function(rowIndex, row) {
         if( rowIndex > 0 || notNull(opts.headings) ) {
+          var includeRowId = opts.includeRowId;
+          var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string') ? true : false;
           $row = $(row);
           if( $row.is(':visible') || !opts.ignoreHiddenRows ) {
+            cellIndex = 0;
             if (!tmpArray[rowIndex]) {
               tmpArray[rowIndex] = [];
             }
-            cellIndex = 0;
+            if (useRowId) {
+              cellIndex = cellIndex + 1;
+              if (typeof $row.attr('id') !== 'undefined') {
+                tmpArray[rowIndex].push($row.attr('id'));
+              } else {
+                tmpArray[rowIndex].push('');
+              }
+            }
+        
             $row.children().each(function(){
               $cell = $(this);
 

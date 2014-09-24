@@ -492,7 +492,7 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
   $('#qunit-fixture').html(
     '<table id="test-table">' +
       '<tr>' +
-        '<th>First Name' +
+        '<th>First Name</th>' +
         '<th>Last Name</th>' +
         '<th>Points</th>' +
       '</tr>' +
@@ -522,6 +522,96 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
     {'First Name':'<strong>Jill</strong>', 'Last Name':'<span class="lastName">Smith</span>', 'Points':'<em>50</em>'},
     {'First Name':'<strong>Eve</strong>', 'Last Name':'<span class="lastName">Jackson</span>', 'Points':'<em>94</em>'},
     {'First Name':'<strong>John</strong>', 'Last Name':'<span class="lastName">Doe</span>', 'Points':'<em>80</em>'}
+  ];
+  deepEqual(table, expected);
+});
+
+/* includeRowId option boolean type places the attribute ID from the row as a property of the row */
+test('includeRowId option boolean type places the attribute ID from the row as a property of the row', function () {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr id="1">' +
+      '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr id="2">' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr id="3">' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>No</td>' +
+        '<td>Row</td>' +
+        '<td>ID</td>' +
+      '</tr>' +
+    '</table>'
+  );
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    includeRowId: true
+  });
+  var expected = [
+    {'rowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'rowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'rowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
+    {'rowId':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+  ];
+  deepEqual(table, expected);
+});
+
+/* includeRowId option custom, instead of a boolean use a string, and string value will be the property name. */
+test('includeRowId option string type, instead of a boolean use a string, and string value will be the property name', function () {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr id="1">' +
+      '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr id="2">' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr id="3">' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>No</td>' +
+        '<td>Row</td>' +
+        '<td>ID</td>' +
+      '</tr>' +
+    '</table>'
+  );
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    includeRowId: 'customIDname'
+  });
+  var expected = [
+    {'customIDname':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'customIDname':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'customIDname':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
+    {'customIDname':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
   ];
   deepEqual(table, expected);
 });
