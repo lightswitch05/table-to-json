@@ -1,3 +1,6 @@
+## 2014-9-24 - Release 0.9.0
+* Added `includeRowId` option.
+
 ## 2014-4-14 - Release 0.8.3
 * Updated to correct version number.
 
