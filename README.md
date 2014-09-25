@@ -32,6 +32,9 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - `allowHTML`
   - Boolean if HTML tags in table cells should be preserved
   - Default: `false`
+- `includeRowId`
+  - Either a `boolean` or a `string`. If `true`, the the `id` attribute on the table's `<tr>` elements will be included in the JSON as `rowId`. To override the name `rowId`, supply a string of the name you would like to use.
+  - Default: `false`
 
 ## Example
 
@@ -82,6 +85,18 @@ jQuery plugin to serialize HTML tables into javascript objects.
 </script>
 ```
 
+## Contributing
+
+* Install [Node.js](http://nodejs.org/).
+  * this will also the `npm` package manager.
+* run `npm install` from app root directory.
+  * This installs grunt and other dependencies See `package.json` for a full list.
+* run `npm install -g grunt-cli`.
+* run `grunt` to run tests and create a new build in `/lib`.
+* Make the changes you want.
+* Make tests for the changes.
+* Submit a pull request, please submit to the `develop` branch.
+
 ### Looking for a server-side solution?
 
 [Colin Tremblay](https://github.com/tremblay) is working on a PHP implementation at [HTML-Table-To-JSON](https://github.com/tremblay/HTML-Table-to-JSON)
@@ -90,3 +105,4 @@ jQuery plugin to serialize HTML tables into javascript objects.
 * [imamathwiz](https://github.com/imamathwiz) for adding `allowHTML` option and various other changes.
 * [nenads](https://github.com/nenads) for adding `headings` option.
 * [Mottie](https://github.com/Mottie) for adding `rowspan` & `colspan` support.
+* [station384](https://github.com/station384) for adding `includeRowId` support.
