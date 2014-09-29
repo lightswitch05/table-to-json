@@ -11,14 +11,27 @@
     constructor: TableToJSONCell,
 
     value: function() {
-      var value;
-      var override = this.$element.data('override');
-      if ( this.options.allowHTML ) {
+      var value = $.trim(this.$element.text());
+      if (this.$element.data('override')) {
+        value = this.$element.data('override');
+      } else if (this.options.allowHTML) {
         value = $.trim(this.$element.html());
-      } else {
-        value = $.trim(this.$element.text());
       }
-      return override ? override : value;
+      return this.withColSpan(value);
+    },
+
+    withColSpan: function(value) {
+      var response = value;
+      if (this.$element.attr('colSpan')) {
+        var colSpan = parseInt( this.$element.attr('colSpan'), 10 );
+        if(colSpan && colSpan > 1){
+          response = [];
+          for(var index=0; index < colSpan; index++){
+            response.push(value);
+          }
+        }
+      }
+      return response;
     },
 
     init: function () {

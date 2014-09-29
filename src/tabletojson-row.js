@@ -28,7 +28,7 @@
       var cellValues = [];
       for(var index = 0; index < this.cells.length; index++){
         if(!this.ignoreColumn(index)){
-          cellValues.push(this.cells[index].value());
+          cellValues = cellValues.concat(this.cells[index].value());
         }
       }
       return cellValues;
