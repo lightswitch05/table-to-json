@@ -5,11 +5,11 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON( 'package.json' ),
-    
+
     clean: {
-      build: [ 'lib' ]
+      build: [ 'lib/*' ]
     },
-    
+
     concat: {
       options: {
         banner: '/**\n' +
@@ -25,10 +25,12 @@ module.exports = function(grunt) {
                 ' */\n'
       },
       dist: {
-        src: [
-          'src/jquery.tabletojson.js'
-        ],
-        dest : 'lib/jquery.tabletojson.js'
+        files: {
+          'lib/jquery.tabletojson.js':
+            ['src/tabletojson-cell.js',
+             'src/tabletojson-row.js',
+             'src/tabletojson.js']
+        }
       }
     },
     jshint: {
@@ -68,11 +70,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-clean' );
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  
+
   // Default task.
   grunt.registerTask('build', ['clean:build', 'concat', 'uglify']);
   grunt.registerTask('test', ['jshint', 'qunit']);

@@ -566,7 +566,7 @@ test('includeRowId option boolean type places the attribute ID from the row as a
     {'rowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'rowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'rowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'rowId':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'rowId':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
   ];
   deepEqual(table, expected);
 });
@@ -611,7 +611,7 @@ test('includeRowId option string type, instead of a boolean use a string, and st
     {'customIDname':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'customIDname':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'customIDname':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'customIDname':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'customIDname':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
   ];
   deepEqual(table, expected);
 });
