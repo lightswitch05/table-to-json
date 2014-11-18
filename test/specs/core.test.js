@@ -225,6 +225,41 @@ test('ignore hidden rows', function() {
   deepEqual(table, expected);
 });
 
+/* Ignore Empty Row */
+test('ignore empty rows', function() {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Eve</td>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr">' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+      '</tr>' +
+    '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON();
+  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+                  {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'}];
+  deepEqual(table, expected);
+});
+
 /* Include Hidden Rows */
 test('Include Hidden Rows', function() {
   $('#qunit-fixture').html(
