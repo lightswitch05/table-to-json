@@ -353,13 +353,19 @@ test('ignore empty rows', function() {
         '<td>Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
+      '<tr data-ignore="false">' +
+        '<td>John</td>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
     '</table>'
   );
 
 
   expect(1);
   var table = $('#test-table').tableToJSON({ignoreEmptyRows:true});
-  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'}];
+  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+                  {'First Name':'John', 'Last Name':'Doe', 'Points':'80'}];
   deepEqual(table, expected);
 });
 
