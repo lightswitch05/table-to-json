@@ -82,7 +82,7 @@
           
           $row = $(row);
 
-          var isEmpty = ($row.find('td').length == $row.find('td:empty').length) ? true : false;
+          var isEmpty = ($row.find('td').length === $row.find('td:empty').length) ? true : false;
           
           if( ( $row.is(':visible') || !opts.ignoreHiddenRows ) && ( !isEmpty || !opts.ignoreEmptyRows ) && !$row.data('ignore') ) {
             cellIndex = 0;
