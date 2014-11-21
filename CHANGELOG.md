@@ -1,3 +1,6 @@
+## 2014-11-21 - Release 0.10.0
+* Added `ignoreEmptyRows` option.
+
 ## 2014-9-24 - Release 0.9.0
 * Added `includeRowId` option.
 

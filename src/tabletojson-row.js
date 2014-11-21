@@ -24,6 +24,17 @@
       return valuesWithHeadings;
     },
 
+    isEmpty: function(){
+      var empty = true;
+      var values = this.values();
+      for(var index = 0; empty && index < values.length; index++){
+        if(values[index] !== ""){
+          empty = false;
+        }
+      }
+      return empty;
+    },
+
     values: function(){
       var cellValues = [];
       for(var index = 0; index < this.cells.length; index++){

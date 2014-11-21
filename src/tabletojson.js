@@ -42,7 +42,9 @@
 
     ignoreRow: function($row, index) {
       return (this.options.ignoreRows && this.options.ignoreRows.indexOf(index) > -1) ||
-        (!$row.$element.is(':visible') && this.options.ignoreHiddenRows);
+        ($row.$element.data('ignore') && $row.$element.data('ignore') !== 'false') ||
+        (this.options.ignoreHiddenRows && !$row.$element.is(':visible')) ||
+        (this.options.ignoreEmptyRows && $row.isEmpty());
     },
 
     init: function () {
@@ -88,6 +90,14 @@
     @default true
     **/
     ignoreHiddenRows: true,
+
+    /**
+    Boolean if hidden rows should be ignored or not.
+
+    @type boolean
+    @default false
+    **/
+    ignoreEmptyRows: false,
 
     /**
     Array of column headings to use. When supplied, all table rows are treated as values (no headings row).
