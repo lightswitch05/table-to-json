@@ -8,6 +8,7 @@
       ignoreColumns: [],
       onlyColumns: null,
       ignoreHiddenRows: true,
+      ignoreEmptyRows: false,
       headings: null,
       allowHTML: false,
       includeRowId : false
@@ -78,8 +79,12 @@
         if( rowIndex > 0 || notNull(opts.headings) ) {
           var includeRowId = opts.includeRowId;
           var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string') ? true : false;
+          
           $row = $(row);
-          if( $row.is(':visible') || !opts.ignoreHiddenRows ) {
+
+          var isEmpty = ($row.find('td').length === $row.find('td:empty').length) ? true : false;
+          
+          if( ( $row.is(':visible') || !opts.ignoreHiddenRows ) && ( !isEmpty || !opts.ignoreEmptyRows ) && ( !$row.data('ignore') || $row.data('ignore') === 'false' ) ) {
             cellIndex = 0;
             if (!tmpArray[rowIndex]) {
               tmpArray[rowIndex] = [];
