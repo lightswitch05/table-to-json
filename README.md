@@ -38,6 +38,38 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - `includeRowId`
   - Either a `boolean` or a `string`. If `true`, the the `id` attribute on the table's `<tr>` elements will be included in the JSON as `rowId`. To override the name `rowId`, supply a string of the name you would like to use.
   - Default: `false`
+- `textDataOverride`
+  - String containing data-attribute which contains data which overrides the text contained within the table cell
+  - Default: 'data-override'
+- `textExtractor`
+  - Function : function that is used on all *tbody* cells to extract text from the cells; a value in `data-override` will prevent this function from being called. Example:
+
+    ```js
+    $('table').tableToJSON({
+      textExtractor : function(cellIndex, $cell) {
+        // get text from the span inside table cells;
+        // if empty or non-existant, get the cell text
+        return $cell.find('span').text() || $cell.text();
+      }
+    });
+    ```
+
+  - Object : object containing a zero-based cell index (this *does not* take `colspan` cells into account!) of the table; a value in `data-override` will prevent this function from being called. Example:
+
+    ```js
+    $('table').tableToJSON({
+      textExtractor : {
+        0 : function(cellIndex, $cell) {
+          return $cell.find('em').text();
+        },
+        1 : function(cellIndex, $cell) {
+          return $cell.find('span').text();
+        }
+      }
+    });
+    ```
+
+  - Default: `null`
 
 ## Example
 

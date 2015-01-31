@@ -721,3 +721,97 @@ test('includeRowId option string type, instead of a boolean use a string, and st
   ];
   deepEqual(table, expected);
 });
+
+test('Basic Usage textExtractor option', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+        '<thead>' +
+          '<tr>' +
+            '<th>Title</th>' +
+            '<th>Street</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<td><span>Doctor</span> Jill Smith</td>' +
+            '<td>123 <span>Main</span> Street</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>President</span> Eve Jackson</td>' +
+            '<td>999 <span>National</span> Blvd.</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>Mr.</span> John Doe</td>' +
+            '<td>555 <span>Letter</span> Ave.</td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>'
+    );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    textExtractor : function(cellIndex, $cell) {
+      return $cell.find('span').text();
+    }
+  });
+  var expected = [{'Title':'Doctor', 'Street':'Main'},
+                  {'Title':'President', 'Street':'National'},
+                  {'Title':'Mr.', 'Street':'Letter'}];
+  deepEqual(table, expected);
+});
+
+test('textExtractor option per column', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+        '<thead>' +
+          '<tr>' +
+            '<th>Title</th>' +
+            '<th>Number</th>' +
+            '<th>Date</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<td><span>Doctor</span> Jill Smith</td>' +
+            '<td data-override="345"><em>123</em> Main Street</td>' +
+            '<td>1/31/2015</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>President</span> Eve Jackson</td>' +
+            '<td><em>999</em> National Blvd.</td>' +
+            '<td>2/1/2014</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>Mr.</span> John Doe</td>' +
+            '<td><em>555</em> Letter Ave.</td>' +
+            '<td>12/2/2014</td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>'
+    );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    textExtractor : {
+      0 : function(cellIndex, $cell) {
+        return $cell.find('span').text();
+      },
+      1 : function(cellIndex, $cell) {
+        return $cell.find('em').text();
+      },
+      2 : function(cellIndex, $cell) {
+        return new Date( $cell.text() ).toString();
+      }
+    }
+  });
+  var dates = [ '1/31/2015', '2/1/2014', '12/2/2014' ];
+  $.each(dates, function(i,v){
+    dates[i] = new Date(v).toString();
+  });
+  var expected = [{'Title':'Doctor', 'Number':'345', 'Date': dates[0]},
+                  {'Title':'President', 'Number':'999', 'Date': dates[1]},
+                  {'Title':'Mr.', 'Number':'555', 'Date': dates[2] }];
+  deepEqual(table, expected);
+});
