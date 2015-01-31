@@ -42,8 +42,7 @@
     };
 
     var cellValues = function(cellIndex, cell, isHeader) {
-      var value, result,
-        $cell = $(cell),
+      var $cell = $(cell),
         // textExtractor
         extractor = opts.textExtractor,
         override = $cell.attr(opts.textDataOverride);
