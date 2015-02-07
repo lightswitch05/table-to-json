@@ -1,3 +1,6 @@
+## 2015-02-06 - Release 0.11.0
+* Added `textExtractor` option.
+
 ## 2014-11-21 - Release 0.10.0
 * Added `ignoreEmptyRows` option.
 
