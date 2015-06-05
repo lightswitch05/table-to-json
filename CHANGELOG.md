@@ -1,3 +1,6 @@
+## 2015-06-05 - Release 0.11.1
+* Fixed `colspan` & `rowspan` support for complicated tables.
+
 ## 2015-02-06 - Release 0.11.0
 * Added `textExtractor` option.
 

@@ -296,3 +296,350 @@ test('ignoreColumns with rowspan & colspan in tbody', function() {
   deepEqual(table, expected);
 
 });
+
+/* A complex table with row & col spans */
+test('complex table with row & col spans', function() {
+  $('#qunit-fixture').html(
+    '<table id="test-table" data-numcols="0" data-numrows="36"> <tr> <th>Rota</th> <th>Descrição Descritor</th> <th>Ano</th> <th>Mês (completo)</th> <th>Dia</th> <th>Intervalo 30min</th> <th>Totais</th> </tr><tr> <td rowspan="14">null</td><td rowspan="2">AutoAtendimento</td><td rowspan="2">2015</td><td rowspan="2">01-Jan</td><td rowspan="2">06</td><td rowspan="1">11:00:00</td><td data-for="row0">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row1">3</td></tr><tr> <td rowspan="6">Fila</td><td rowspan="6">2015</td><td rowspan="6">01-Jan</td><td rowspan="2">06</td><td rowspan="1">11:00:00</td><td data-for="row2">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row3">2</td></tr><tr> <td rowspan="4">27</td><td rowspan="1">11:30:00</td><td data-for="row4">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row5">1</td></tr><tr> <td rowspan="1">15:00:00</td><td data-for="row6">4</td></tr><tr> <td rowspan="1">16:00:00</td><td data-for="row7">2</td></tr><tr> <td rowspan="6">Inicio</td><td rowspan="6">2015</td><td rowspan="6">01-Jan</td><td rowspan="2">06</td><td rowspan="1">11:00:00</td><td data-for="row8">2</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row9">5</td></tr><tr> <td rowspan="4">27</td><td rowspan="1">11:30:00</td><td data-for="row10">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row11">1</td></tr><tr> <td rowspan="1">15:00:00</td><td data-for="row12">4</td></tr><tr> <td rowspan="1">16:00:00</td><td data-for="row13">2</td></tr><tr> <td rowspan="22">Rota externa</td><td rowspan="2">AutoAtendimento</td><td rowspan="2">2015</td><td rowspan="2">01-Jan</td><td rowspan="2">06</td><td rowspan="1">12:00:00</td><td data-for="row14">1</td></tr><tr> <td rowspan="1">12:30:00</td><td data-for="row15">2</td></tr><tr> <td rowspan="9">Fila</td><td rowspan="9">2015</td><td rowspan="9">01-Jan</td><td rowspan="2">06</td><td rowspan="1">12:00:00</td><td data-for="row16">1</td></tr><tr> <td rowspan="1">12:30:00</td><td data-for="row17">2</td></tr><tr> <td rowspan="7">27</td><td rowspan="1">10:30:00</td><td data-for="row18">1</td></tr><tr> <td rowspan="1">11:00:00</td><td data-for="row19">2</td></tr><tr> <td rowspan="1">11:30:00</td><td data-for="row20">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row21">2</td></tr><tr> <td rowspan="1">16:00:00</td><td data-for="row22">2</td></tr><tr> <td rowspan="1">18:30:00</td><td data-for="row23">1</td></tr><tr> <td rowspan="1">19:00:00</td><td data-for="row24">1</td></tr><tr> <td rowspan="11">Inicio</td><td rowspan="11">2015</td><td rowspan="10">01-Jan</td><td rowspan="2">06</td><td rowspan="1">12:00:00</td><td data-for="row25">2</td></tr><tr> <td rowspan="1">12:30:00</td><td data-for="row26">4</td></tr><tr> <td rowspan="7">27</td><td rowspan="1">10:30:00</td><td data-for="row27">2</td></tr><tr> <td rowspan="1">11:00:00</td><td data-for="row28">2</td></tr><tr> <td rowspan="1">11:30:00</td><td data-for="row29">1</td></tr><tr> <td rowspan="1">12:00:00</td><td data-for="row30">2</td></tr><tr> <td rowspan="1">16:00:00</td><td data-for="row31">2</td></tr><tr> <td rowspan="1">18:30:00</td><td data-for="row32">1</td></tr><tr> <td rowspan="1">19:00:00</td><td data-for="row33">1</td></tr><tr> <td rowspan="1">30</td><td rowspan="1">20:00:00</td><td data-for="row34">1</td></tr><tr> <td rowspan="1">02-Feb</td><td rowspan="1">03</td><td rowspan="1">14:30:00</td><td data-for="row35">1</td></tr><tr> <th colspan="6">Totais</th> <td>34</td></tr></table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON();
+  var expected = [
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'AutoAtendimento',
+      'Dia': '06',
+      'Intervalo 30min': '11:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'AutoAtendimento',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '3'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '06',
+      'Intervalo 30min': '11:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '11:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '15:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '4'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '16:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '06',
+      'Intervalo 30min': '11:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '5'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '11:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '15:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '4'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '16:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'null',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'AutoAtendimento',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'AutoAtendimento',
+      'Dia': '06',
+      'Intervalo 30min': '12:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '06',
+      'Intervalo 30min': '12:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '10:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '11:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '11:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '16:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '18:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Fila',
+      'Dia': '27',
+      'Intervalo 30min': '19:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '06',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '06',
+      'Intervalo 30min': '12:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '4'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '10:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '11:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '11:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '12:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '16:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '2'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '18:30:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '27',
+      'Intervalo 30min': '19:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '30',
+      'Intervalo 30min': '20:00:00',
+      'Mês (completo)': '01-Jan',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': '2015',
+      'Descrição Descritor': 'Inicio',
+      'Dia': '03',
+      'Intervalo 30min': '14:30:00',
+      'Mês (completo)': '02-Feb',
+      'Rota': 'Rota externa',
+      'Totais': '1'
+    },
+    {
+      'Ano': 'Totais',
+      'Descrição Descritor': 'Totais',
+      'Dia': 'Totais',
+      'Intervalo 30min': 'Totais',
+      'Mês (completo)': 'Totais',
+      'Rota': 'Totais',
+      'Totais': '34'
+    }
+  ];
+  deepEqual(table, expected);
+});
