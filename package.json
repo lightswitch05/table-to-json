@@ -5,6 +5,7 @@
   "homepage": "https://github.com/lightswitch05/table-to-json",
   "main": "lib/jquery.tabletojson.js",
   "demo": "http://lightswitch05.github.io/table-to-json/",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/lightswitch05/table-to-json.git"
