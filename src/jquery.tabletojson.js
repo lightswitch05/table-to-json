@@ -110,6 +110,8 @@
 
             $row.children().each(function(){
               $cell = $(this);
+              // skip column if already defined
+              while (tmpArray[rowIndex][cellIndex]) { cellIndex++; }
 
               // process rowspans
               if ($cell.filter('[rowspan]').length) {
@@ -136,8 +138,7 @@
                   }
                 }
               }
-              // skip column if already defined
-              while (tmpArray[rowIndex][cellIndex]) { cellIndex++; }
+
               txt = tmpArray[rowIndex][cellIndex] || cellValues(cellIndex, $cell);
               if (notNull(txt)) {
                 tmpArray[rowIndex][cellIndex] = txt;
