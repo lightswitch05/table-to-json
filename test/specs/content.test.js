@@ -228,6 +228,40 @@ test('A table with colspan', function() {
   deepEqual(table, expected);
 });
 
+/* A table with rowspan */
+test('A table with rowspan', function() {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+      '<tr>' +
+        '<th>First Name</th>' +
+        '<th>Last Name</th>' +
+        '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+        '<td rowspan="3">Jill</td>' +
+        '<td>Smith</td>' +
+        '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Jackson</td>' +
+        '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+        '<td>Doe</td>' +
+        '<td>80</td>' +
+      '</tr>' +
+    '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON();
+  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+                  {'First Name':'Jill', 'Last Name':'Jackson', 'Points':'94'},
+                  {'First Name':'Jill', 'Last Name':'Doe', 'Points':'80'}];
+  deepEqual(table, expected);
+});
+
 /* A table with rowspan & colspan */
 test('rowspan & colspan in tbody', function() {
   $('#qunit-fixture').html(

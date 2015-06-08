@@ -41,17 +41,51 @@
     },
 
     ignoreRow: function($row, index) {
-      return (this.options.ignoreRows && this.options.ignoreRows.indexOf(index) > -1) ||
+      return (
+        this.options.ignoreRows && this.options.ignoreRows.indexOf(index) > -1) ||
         ($row.$element.data('ignore') && $row.$element.data('ignore') !== 'false') ||
         (this.options.ignoreHiddenRows && !$row.$element.is(':visible')) ||
         (this.options.ignoreEmptyRows && $row.isEmpty());
     },
 
+    addRow: function($row, rowSpans) {
+      var spannedCells, cell;
+      $row.insertRowSpans(rowSpans);
+      this.rows.push($row);
+      return $row.getRowSpans(rowSpans);
+
+      /*
+      if(rowSpans.length === 0){
+        // no previous row spans to worry about
+        this.rows.push($row);
+      } else {
+        for(var startingCell=0; startingCell < rowSpans.length; startingCell++){
+          spannedCells = rowSpans[startingCell];
+          if(spannedCells && spannedCells.length > 0){
+            cell = spannedCells.splice(0, 1);
+            $row.insert(startingCell, cell);
+          }
+          if(spannedCells.length > 0){
+            rowSpans[startingCell] = spannedCells;
+          } else {
+            rowSpans.splice(startingCell, 1);
+          }
+        }
+        rowSpans.shift();
+      }
+      return rowSpans;*/
+    },
+
     init: function () {
       // Init Rows
-      var self = this;
+      var self = this, rowSpans = [], newRow = null, span = null;
       this.$element.children(this.options.rowParentSelector).children(this.options.rowSelector).each(function(rowIndex, row) {
-        self.rows.push( $(row).tableToJSONRow(self.options) );
+        newRow = $(row).tableToJSONRow(self.options);
+        rowSpans = self.addRow( newRow, rowSpans );
+        //span = newRow.rowSpans();
+        //if(span.length > 0){
+        //  rowSpans.push(span);
+       // }
       });
 
       $.proxy(function() {

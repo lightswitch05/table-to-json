@@ -28,11 +28,73 @@
       var empty = true;
       var values = this.values();
       for(var index = 0; empty && index < values.length; index++){
-        if(values[index] !== ""){
+        if(values[index] !== ''){
           empty = false;
         }
       }
       return empty;
+    },
+
+    cell: function(index){
+      if(index < this.cells.length){
+        return this.cells[index];
+      } else {
+        return null;
+      }
+    },
+
+    insert: function(index, cell){
+      this.cells.splice(index, 0, cell);
+    },
+
+    getRowSpans: function(spans){
+      var span, rows = [], cell;
+      for(var cellIndex = 0; cellIndex < this.cells.length; cellIndex++){
+        rows = [];
+        cell = this.cells[cellIndex];
+        if(cell){
+          span = cell.rowSpan();
+          while(span > 1){
+            rows.push(cell);
+            span--;
+          }
+          cell.rowSpan(1);
+        }
+        if(rows.length > 0){
+          spans[cellIndex] = rows;
+        }
+      }
+      console.log("spans" + JSON.stringify(spans));
+      return spans;
+    },
+
+    insertRowSpans: function(spans){
+      for(var cellIndex = 0; cellIndex < spans.length; cellIndex++) {
+        if (spans[cellIndex] && spans[cellIndex].length > 0) {
+          var spannedCell = spans[cellIndex].splice(0, 1)[0];
+          this.insert(cellIndex, spannedCell);
+        }
+      }
+      return spans;
+    },
+
+    rowSpans: function(previousSpans){
+      var spans = [], span, rows = [], cell;
+      for(var cellIndex = 0; cellIndex < this.cells.length; cellIndex++){
+        rows = [];
+        cell = this.cells[cellIndex];
+        span = cell.rowSpan();
+        while(span > 1){
+          rows.push(cell);
+          span--;
+        }
+        cell.rowSpan(1);
+        if(rows.length > 0){
+          spans[cellIndex] = rows;
+        }
+      }
+      console.log("spans" + JSON.stringify(spans));
+      return spans;
     },
 
     values: function(){
@@ -54,12 +116,12 @@
 
     init: function () {
       // Init Cells
-      var self = this;
+      var self = this, spannedCell = null;
       this.$element.children(this.options.cellSelector).each(function(cellIndex, cell) {
         self.cells.push( $(cell).tableToJSONCell(self.options) );
       });
 
-      //finilize init
+      // Finalize init
       $.proxy(function() {
         /**
         Fired when row was initialized by `$().tableToJSON()` method.
@@ -74,7 +136,7 @@
     }
   };
 
-  // Initilize row
+  // Initialize row
   $.fn.tableToJSONRow = function (options) {
     return new TableToJSONRow(this, options);
   };
