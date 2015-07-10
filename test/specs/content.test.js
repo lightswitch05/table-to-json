@@ -276,11 +276,10 @@ test('A table with rowspan', function() {
         '<td>50</td>' +
       '</tr>' +
       '<tr>' +
-        '<td>Jackson</td>' +
+      '<td rowspan="2">Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
       '<tr>' +
-        '<td>Doe</td>' +
         '<td>80</td>' +
       '</tr>' +
     '</table>'
@@ -291,7 +290,73 @@ test('A table with rowspan', function() {
   var table = $('#test-table').tableToJSON();
   var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
                   {'First Name':'Jill', 'Last Name':'Jackson', 'Points':'94'},
-                  {'First Name':'Jill', 'Last Name':'Doe', 'Points':'80'}];
+                  {'First Name':'Jill', 'Last Name':'Jackson', 'Points':'80'}];
+  deepEqual(table, expected);
+});
+
+/* ignoreColumns with rowspan */
+test('ignoreColumns with rowspan', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+      '<tr>' +
+      '<th>First Name</th>' +
+      '<th>Last Name</th>' +
+      '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+      '<td rowspan="3">Jill</td>' +
+      '<td>Smith</td>' +
+      '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td rowspan="2">Jackson</td>' +
+      '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td>80</td>' +
+      '</tr>' +
+      '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({ ignoreColumns : [1] });
+  var expected = [{'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'First Name':'Jill', 'Points':'94'},
+    {'First Name':'Jill', 'Points':'80'}];
+  deepEqual(table, expected);
+});
+
+/* ignoreColumns with rowspan */
+test('ignoreRows with rowspan', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+      '<tr>' +
+      '<th>First Name</th>' +
+      '<th>Last Name</th>' +
+      '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+      '<td rowspan="3">Jill</td>' +
+      '<td>Smith</td>' +
+      '<td>50</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td rowspan="2">Jackson</td>' +
+      '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td>80</td>' +
+      '</tr>' +
+      '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({ ignoreRows : [2] });
+  var expected = [
+    {'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
+    {'First Name':'Jill', 'Last Name':'Jackson', 'Points':'80'}];
   deepEqual(table, expected);
 });
 
