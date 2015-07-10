@@ -64,7 +64,7 @@
           spans[cellIndex] = rows;
         }
       }
-      console.log("spans" + JSON.stringify(spans));
+      //console.log("spans" + JSON.stringify(spans));
       return spans;
     },
 
@@ -78,7 +78,7 @@
       return spans;
     },
 
-    rowSpans: function(previousSpans){
+    rowSpans: function(){
       var spans = [], span, rows = [], cell;
       for(var cellIndex = 0; cellIndex < this.cells.length; cellIndex++){
         rows = [];
@@ -93,16 +93,31 @@
           spans[cellIndex] = rows;
         }
       }
-      console.log("spans" + JSON.stringify(spans));
+      //console.log("spans" + JSON.stringify(spans));
       return spans;
     },
 
     values: function(){
-      var cellValues = [];
+      var cellValues = [], value = null, colSpanOffset = 0;
       for(var index = 0; index < this.cells.length; index++){
-        if(!this.ignoreColumn(index)){
-          cellValues = cellValues.concat(this.cells[index].value());
+        value = this.cells[index].value();
+
+        if (this.cells[index].colSpan() === 1) {
+          // simple case, either ignore it or not
+          if(!this.ignoreColumn(colSpanOffset)){
+            cellValues = cellValues.concat(value);
+          }
+        } else {
+          // this cell has a colSpan, ensure each
+          // value match ignored columns
+          for (var valuesIndex = 0; valuesIndex < value.length; valuesIndex++) {
+            colSpanOffset++;
+            if (!this.ignoreColumn(valuesIndex + index)) {
+              cellValues = cellValues.concat(value[valuesIndex]);
+            }
+          }
         }
+        colSpanOffset++;
       }
       return cellValues;
     },
@@ -116,7 +131,7 @@
 
     init: function () {
       // Init Cells
-      var self = this, spannedCell = null;
+      var self = this;
       this.$element.children(this.options.cellSelector).each(function(cellIndex, cell) {
         self.cells.push( $(cell).tableToJSONCell(self.options) );
       });

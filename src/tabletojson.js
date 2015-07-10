@@ -49,7 +49,6 @@
     },
 
     addRow: function($row, rowSpans) {
-      var spannedCells, cell;
       $row.insertRowSpans(rowSpans);
       this.rows.push($row);
       return $row.getRowSpans(rowSpans);
@@ -78,7 +77,7 @@
 
     init: function () {
       // Init Rows
-      var self = this, rowSpans = [], newRow = null, span = null;
+      var self = this, rowSpans = [], newRow = null;
       this.$element.children(this.options.rowParentSelector).children(this.options.rowSelector).each(function(rowIndex, row) {
         newRow = $(row).tableToJSONRow(self.options);
         rowSpans = self.addRow( newRow, rowSpans );

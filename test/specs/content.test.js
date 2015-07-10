@@ -228,6 +228,39 @@ test('A table with colspan', function() {
   deepEqual(table, expected);
 });
 
+/* ignoreColumns with colspan */
+test('ignoreColumns with colspan', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+      '<tr>' +
+      '<th>First Name</th>' +
+      '<th>Last Name</th>' +
+      '<th>Points</th>' +
+      '</tr>' +
+      '<tr>' +
+      '<td colspan="3">Jill</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td colspan="2">Eve</td>' +
+      '<td>94</td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td colspan="1">John</td>' +
+      '<td>Doe</td>' +
+      '<td>80</td>' +
+      '</tr>' +
+      '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({ ignoreColumns : [1] });
+  var expected = [{'First Name':'Jill', 'Points':'Jill'},
+    {'First Name':'Eve', 'Points':'94'},
+    {'First Name':'John', 'Points':'80'}];
+  deepEqual(table, expected);
+});
+
 /* A table with rowspan */
 test('A table with rowspan', function() {
   $('#qunit-fixture').html(
