@@ -70,7 +70,7 @@
     }
   };
 
-  // Initilize cell
+  // Initialize cell
   $.fn.tableToJSONCell = function (options) {
     return new TableToJSONCell(this, options);
   };

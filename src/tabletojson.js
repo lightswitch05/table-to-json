@@ -101,7 +101,7 @@
     }
   };
 
-  // Initilize
+  // Initialize
   $.fn.tableToJSON = function (options) {
     var table = new TableToJSON(this, options);
     return table.values();

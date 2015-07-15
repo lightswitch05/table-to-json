@@ -107,17 +107,17 @@
           if(!this.ignoreColumn(colSpanOffset)){
             cellValues = cellValues.concat(value);
           }
+          colSpanOffset++;
         } else {
           // this cell has a colSpan, ensure each
           // value match ignored columns
           for (var valuesIndex = 0; valuesIndex < value.length; valuesIndex++) {
-            colSpanOffset++;
-            if (!this.ignoreColumn(valuesIndex + index)) {
+            if (!this.ignoreColumn(colSpanOffset)) {
               cellValues = cellValues.concat(value[valuesIndex]);
             }
+            colSpanOffset++;
           }
         }
-        colSpanOffset++;
       }
       return cellValues;
     },
@@ -158,7 +158,7 @@
 
   $.fn.tableToJSONRow.defaults = {
     /**
-    Array of column indexes to include, all other columns are ignored. This takes presidence over ignoreColumns when provided.
+    Array of column indexes to include, all other columns are ignored. This takes precedence over ignoreColumns when provided.
 
     @type Array
     @default null
