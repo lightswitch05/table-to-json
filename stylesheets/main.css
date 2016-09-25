@@ -11,3 +11,10 @@
      margin-left: auto;
      margin-right: auto;
 }
+
+xmp {
+  margin: 0;
+}
+#convert-table {
+  margin-bottom: 1.5em;
+}

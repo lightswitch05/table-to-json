@@ -102,15 +102,42 @@
         </table>
         <button class="btn btn-primary" id="convert-table">Convert!</button>
         <p>
-          <pre><code>
-&lt;script&gt;
+          This examples uses the data-override option:
+          <pre><code><xmp><table id='example-table'>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th data-override="Score">Points</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jill</td>
+      <td>Smith</td>
+      <td data-override="disqualified">50</td></tr>
+    <tr>
+      <td>Eve</td>
+      <td>Jackson</td>
+      <td>94</td></tr>
+    <tr>
+      <td>John</td>
+      <td>Doe</td>
+      <td>80</td></tr>
+    <tr>
+      <td>Adam</td>
+      <td>Johnson</td>
+      <td>67</td></tr>
+  </tbody>
+</table>
+
+<script>
 $('#convert-table').click( function() {
   var table = $('#example-table').tableToJSON(); // Convert the table into a javascript object
   console.log(table);
   alert(JSON.stringify(table));
 });
-&lt;/script&gt;
-          </code></pre>
+</script>
+          </xmp></code></pre>
         </p>
       </div>
 
