@@ -13,6 +13,7 @@
       allowHTML: false,
       includeRowId: false,
       textDataOverride: 'data-override',
+      extractor: null,
       textExtractor: null
     };
     opts = $.extend(defaults, opts);
@@ -43,18 +44,21 @@
 
     var cellValues = function(cellIndex, cell, isHeader) {
       var $cell = $(cell),
-        // textExtractor
-        extractor = opts.textExtractor,
-        override = $cell.attr(opts.textDataOverride);
+        // extractor
+        extractor = opts.extractor || opts.textExtractor,
+        override = $cell.attr(opts.textDataOverride),
+        value;
       // don't use extractor for header cells
       if ( extractor === null || isHeader ) {
         return $.trim( override || ( opts.allowHTML ? $cell.html() : cell.textContent || $cell.text() ) || '' );
       } else {
         // overall extractor function
         if ( $.isFunction(extractor) ) {
-          return $.trim( override || extractor(cellIndex, $cell) );
+          value = override || extractor(cellIndex, $cell);
+          return typeof value === 'string' ? $.trim( value ) : value;
         } else if ( typeof extractor === 'object' && $.isFunction( extractor[cellIndex] ) ) {
-          return $.trim( override || extractor[cellIndex](cellIndex, $cell) );
+          value = override || extractor[cellIndex](cellIndex, $cell);
+          return typeof value === 'string' ? $.trim( value ) : value;
         }
       }
       // fallback

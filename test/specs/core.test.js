@@ -722,7 +722,7 @@ test('includeRowId option string type, instead of a boolean use a string, and st
   deepEqual(table, expected);
 });
 
-test('Basic Usage textExtractor option', function() {
+test('Basic Usage extractor option', function() {
   $('#qunit-fixture').html(
       '<table id="test-table">' +
         '<thead>' +
@@ -751,7 +751,7 @@ test('Basic Usage textExtractor option', function() {
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-    textExtractor : function(cellIndex, $cell) {
+    extractor : function(cellIndex, $cell) {
       return $cell.find('span').text();
     }
   });
@@ -761,7 +761,7 @@ test('Basic Usage textExtractor option', function() {
   deepEqual(table, expected);
 });
 
-test('textExtractor option per column', function() {
+test('extractor option per column', function() {
   $('#qunit-fixture').html(
       '<table id="test-table">' +
         '<thead>' +
@@ -794,7 +794,7 @@ test('textExtractor option per column', function() {
 
   expect(1);
   var table = $('#test-table').tableToJSON({
-    textExtractor : {
+    extractor : {
       0 : function(cellIndex, $cell) {
         return $cell.find('span').text();
       },
