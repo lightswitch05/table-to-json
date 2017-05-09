@@ -44,14 +44,27 @@ jQuery plugin to serialize HTML tables into javascript objects.
   - String containing data-attribute which contains data which overrides the text contained within the table cell
   - Default: 'data-override'
 - `textExtractor`
+  - alias of `extractor`
+- `extractor`
   - Function : function that is used on all *tbody* cells to extract text from the cells; a value in `data-override` will prevent this function from being called. Example:
 
     ```js
     $('table').tableToJSON({
-      textExtractor : function(cellIndex, $cell) {
+      extractor : function(cellIndex, $cell) {
         // get text from the span inside table cells;
         // if empty or non-existant, get the cell text
         return $cell.find('span').text() || $cell.text();
+      }
+    });
+    ```
+
+    ```js
+    $('table').tableToJSON({
+      extractor : function(cellIndex, $cell) {
+        return {
+          name: $cell.find('span').text(),
+          avatar: $cell.find('img').attr('src')
+        };
       }
     });
     ```
@@ -60,7 +73,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
 
     ```js
     $('table').tableToJSON({
-      textExtractor : {
+      extractor : {
         0 : function(cellIndex, $cell) {
           return $cell.find('em').text();
         },
