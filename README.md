@@ -158,3 +158,5 @@ jQuery plugin to serialize HTML tables into javascript objects.
 * [station384](https://github.com/station384) for adding `includeRowId` support.
 * [dayAlone](https://github.com/dayAlone) for adding `ignoreEmptyRows` option.
 * [danielapsmaior](https://github.com/danielapsmaior) for discovering and fixing a `rowspan` & `colspan` bug.
+* [koshuang](https://github.com/koshuang) for adding `extractor` feature!
+
