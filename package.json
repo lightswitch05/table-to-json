@@ -1,7 +1,7 @@
 {
   "name": "table-to-json",
   "description": "jQuery plugin that reads an HTML table and returns a javascript object representing the values and columns of the table",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "homepage": "https://github.com/lightswitch05/table-to-json",
   "main": "lib/jquery.tabletojson.js",
   "demo": "http://lightswitch05.github.io/table-to-json/",
