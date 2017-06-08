@@ -21,7 +21,11 @@
     var notNull = function(value) {
       return value !== undefined && value !== null;
     };
-
+    
+    var notEmpty = function(value) {
+      return value !== undefined && value.length > 0;
+    };
+    
     var ignoredColumn = function(index) {
       if( notNull(opts.onlyColumns) ) {
         return $.inArray(index, opts.onlyColumns) === -1;
@@ -35,7 +39,9 @@
         // when ignoring columns, the header option still starts
         // with the first defined column
         if ( index < keys.length && notNull(value) ) {
-          result[ keys[index] ] = value;
+          if (notEmpty(keys[index])){
+            result[ keys[index] ] = value;
+          }
           index++;
         }
       });
