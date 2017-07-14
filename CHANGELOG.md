@@ -1,4 +1,7 @@
-2017-05-10 - Release 0.12.0
+## 2017-07-14 - Release 0.13.0
+* Skip columns where headers are not present.
+
+## 2017-05-10 - Release 0.12.0
 * Added `extractor` option.
 
 ## 2015-06-05 - Release 0.11.1

@@ -159,4 +159,5 @@ jQuery plugin to serialize HTML tables into javascript objects.
 * [dayAlone](https://github.com/dayAlone) for adding `ignoreEmptyRows` option.
 * [danielapsmaior](https://github.com/danielapsmaior) for discovering and fixing a `rowspan` & `colspan` bug.
 * [koshuang](https://github.com/koshuang) for adding `extractor` feature!
+* [noma4i](https://github.com/noma4i) added feature "Skip columns where headers are not present"
 
