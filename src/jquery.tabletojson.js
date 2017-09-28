@@ -1,3 +1,10 @@
+var isNode =  require('is-node')
+var isElectron = require('is-electron')
+
+if( isNode ) {
+  var jQuery = $ = isElectron ? require('jquery') : require('jquery-node')
+}
+
 (function( $ ) {
   'use strict';
 

@@ -18,11 +18,11 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.13",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.9.2",
     "grunt-contrib-qunit": "~0.4.0",
-    "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-watch": "~0.6.1"
   },
   "licenses": [
@@ -30,5 +30,11 @@
       "type": "MIT",
       "url": "https://github.com/lightswitch05/table-to-json/blob/master/MIT-LICENSE"
     }
-  ]
+  ],
+  "dependencies": {
+    "is-electron": "^2.1.0",
+    "is-node": "^1.0.2",
+    "jquery": "^3.2.1",
+    "jquery-node": "^0.3.0"
+  }
 }
