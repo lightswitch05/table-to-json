@@ -9,6 +9,14 @@ jQuery plugin to serialize HTML tables into javascript objects.
 - Demo: http://lightswitch05.github.io/table-to-json/
 - Plunker Template: http://plnkr.co/edit/iQFtcEEZkvsMJ2UqcrlW?p=preview
 
+## CDN
+
+It is recommended to pull this tool into your project directly. But if you insist to use a CDN, here is one:
+
+```
+<script src="https://cdn.jsdelivr.net/npm/table-to-json@0.13.0/lib/jquery.tabletojson.min.js" integrity="sha256-AqDz23QC5g2yyhRaZcEGhMMZwQnp8fC6sCZpf+e7pnw=" crossorigin="anonymous"></script>
+```
+
 ## Features
 - Automatically finds column headings
   - Override found column headings by using `data-override="overridden column name"`
