@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Table-to-JSON</title>
+
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Table-to-json : jQuery plugin to serialize HTML tables into easy-to-use JSON objects." />
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+  </head>
+
+  <body>
+    <div class="container" style="padding-bottom:50px;">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+      <a href="https://github.com/lightswitch05/table-to-json"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+        <div class="navbar-inner" style="height:40px;">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Table-to-JSON</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="https://github.com/lightswitch05/table-to-json">Github</a></li>
+                <li><a href="https://github.com/lightswitch05/table-to-json/issues">Issues</a></li>
+                <li><a href="https://lightswitch05.github.com">Projects</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Table-to-JSON</h1>
+        <p class="muted">
+          A jQuery plugin that converts an HTML Table into a javascript object. Great for working with user-editable tables or accessing output from 3rd party tools.
+        </p>
+
+        <div style="text-align: center">
+          <p>
+            <a class="btn btn-success btn-large" href="https://github.com/lightswitch05/table-to-json/zipball/master">Download .zip</a>
+            <a class="btn btn-primary btn-large" href="https://github.com/lightswitch05/table-to-json/tarball/master">Download tar.gz</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row center span10">
+        <h2>Demo</h2>
+        <table id='example-table' class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th data-override="Score">Points</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td data-override="disqualified">50</td></tr>
+            <tr>
+              <td>Eve</td>
+              <td>Jackson</td>
+              <td>94</td></tr>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>80</td></tr>
+            <tr>
+              <td>Adam</td>
+              <td>Johnson</td>
+              <td>67</td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" id="convert-table">Convert!</button>
+        <p>
+          This examples uses the data-override option:
+          <pre><code><xmp><table id='example-table'>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th data-override="Score">Points</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jill</td>
+      <td>Smith</td>
+      <td data-override="disqualified">50</td></tr>
+    <tr>
+      <td>Eve</td>
+      <td>Jackson</td>
+      <td>94</td></tr>
+    <tr>
+      <td>John</td>
+      <td>Doe</td>
+      <td>80</td></tr>
+    <tr>
+      <td>Adam</td>
+      <td>Johnson</td>
+      <td>67</td></tr>
+  </tbody>
+</table>
+
+<script>
+$('#convert-table').click( function() {
+  var table = $('#example-table').tableToJSON(); // Convert the table into a javascript object
+  console.log(table);
+  alert(JSON.stringify(table));
+});
+</script>
+          </xmp></code></pre>
+        </p>
+      </div>
+
+      <div class="row span10">
+        <h2>Options</h2>
+        <ul>
+          <li><code>ignoreColumns</code>
+            <ul>
+              <li>Array of column indexes to ignore.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>[]</code></li>
+            </ul>
+          </li>
+          <li><code>onlyColumns</code>
+            <ul>
+              <li>Array of column indexes to include, all other columns are ignored. This takes presidence over ignoreColumns when provided.</li>
+              <li>This takes precedence over <code>ignoreColumns</code> when both are provided.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>null</code> - all columns</li>
+            </ul>
+          </li>
+          <li><code>ignoreHiddenRows</code>
+            <ul>
+              <li>Boolean if hidden rows should be ignored or not.</li>
+              <li>Type: <code>Boolean</code>
+              <li>Default: <code>true</code></li>
+            </ul>
+          </li>
+          <li><code>headings</code>
+            <ul>
+              <li>Array of column headings to use. When supplied, all table rows are treated as values.</li>
+              <li>Type: <code>Array</code>
+              <li>Default: <code>null</code></li>
+            </ul>
+          </li>
+          <li><code>allowHTML</code>
+            <ul>
+              <li>Boolean if HTML tags in table cells should be preserved.</li>
+              <li>Type: <code>Boolean</code></li>
+              <li>Default: <code>false</code></li>
+            </ul>
+          </li>
+          <li><code>includeRowId</code>
+            <ul>
+              <li>Determines if the <code>id</code> attribute of each <code>&lt;tr&gt;</code> element is included in the JSON.</li>
+              <li>Type: <code>Boolean</code> or <code>String</code>
+                <ul>If <code>true</code>, the ids are included under the header <code>rowId</code>.</ul>
+                <ul>If <code>String</code>, it is used as the header for the id instead of the default <code>rowId</code>.</ul>
+              </li>
+              <li>Default: <code>false</code></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="row span10">
+        <h2>Features</h2>
+        <ul>
+          <li>Automatically finds column headings.
+            <ul>
+              <li>Override found column headings by using <code>data-override="overridden column name"</code>.</li>
+              <li>Always uses first row as column headings regardless of th and td tags.</li>
+              <li>Define headings using the <code>headings</code> option when a table doesn&#39;t have any specified headings.</li>
+            </ul>
+          </li>
+          <li>Override cell values column names by using <code>data-override="new value"</code>.</li>
+          <li>Ignorable columns.</li>
+          <li>Not confused by nested tables.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FOOTER  -->
+    <footer class="footer">
+      <div class="container">
+        <p class="copyright">
+          Table-to-JSON &copy; <a href="https://github.com/lightswitch05">Daniel White</a> 2020.
+          Released under the <a href="https://github.com/lightswitch05/table-to-json/blob/master/MIT-LICENSE">MIT license</a>.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="jquery.tabletojson.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

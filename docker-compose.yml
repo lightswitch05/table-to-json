@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  node:
+    image: node:0.12.14-wheezy
+    volumes:
+      - "${PWD}:/opt/table-to-json"
+    working_dir: /opt/table-to-json

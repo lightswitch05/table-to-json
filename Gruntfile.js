@@ -5,11 +5,11 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON( 'package.json' ),
-    
+
     clean: {
       build: [ 'lib' ]
     },
-    
+
     concat: {
       options: {
         banner: '/**\n' +
@@ -51,7 +51,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'lib/jquery.tabletojson.min.js': ['<banner>','lib/jquery.tabletojson.js']
+          'lib/jquery.tabletojson.min.js': ['<banner>','lib/jquery.tabletojson.js'],
+          'docs/jquery.tabletojson.min.js': ['<banner>','lib/jquery.tabletojson.js']
         }
       }
     },
@@ -72,10 +73,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  
+
   // Default task.
   grunt.registerTask('build', ['clean:build', 'concat', 'uglify']);
   grunt.registerTask('test', ['jshint', 'qunit']);
+  grunt.registerTask('lint', ['jshint']);
   grunt.registerTask('default', ['test', 'build']);
 
 };

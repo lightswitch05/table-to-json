@@ -643,3 +643,39 @@ test('complex table with row & col spans', function() {
   ];
   deepEqual(table, expected);
 });
+
+test('ignore empty rows should take into account ignore columns feature', function() {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+    '<tr>' +
+    '<th>First Name</th>' +
+    '<th>Last Name</th>' +
+    '<th>Points</th>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>Jill</td>' +
+    '<td>Smith</td>' +
+    '<td>50</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>Eve</td>' +
+    '<td>Jackson</td>' +
+    '<td>94</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td></td>' +
+    '<td></td>' +
+    '<td>this not empty - but ignored</td>' +
+    '</tr>' +
+    '</table>'
+  );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({ignoreEmptyRows:true, ignoreColumns:[2]});
+  var expected = [
+      {'First Name':'Jill', 'Last Name':'Smith'},
+      {'First Name':'Eve', 'Last Name':'Jackson'}
+    ];
+  deepEqual(table, expected);
+});

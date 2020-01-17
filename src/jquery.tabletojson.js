@@ -21,7 +21,7 @@
     var notNull = function(value) {
       return value !== undefined && value !== null;
     };
-    
+
     var notEmpty = function(value) {
       return value !== undefined && value.length > 0;
     };
@@ -74,8 +74,8 @@
     var rowValues = function(row, isHeader) {
       var result = [];
       var includeRowId = opts.includeRowId;
-      var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string') ? true : false;
-      var rowIdName = (typeof includeRowId === 'string') === true ? includeRowId : 'rowId';
+      var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string');
+      var rowIdName = (typeof includeRowId === 'string') ? includeRowId : 'rowId';
       if (useRowId) {
         if (typeof $(row).attr('id') === 'undefined') {
           result.push(rowIdName);
@@ -98,21 +98,19 @@
       table.children('tbody,*').children('tr').each(function(rowIndex, row) {
         if( rowIndex > 0 || notNull(opts.headings) ) {
           var includeRowId = opts.includeRowId;
-          var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string') ? true : false;
+          var useRowId = (typeof includeRowId === 'boolean') ? includeRowId : (typeof includeRowId === 'string');
 
           $row = $(row);
 
-          var isEmptyRow = function (row){
-            var result = true;
-            var cells = $(row).find('td').not(ignoredColumn);
+          var isEmptyRow = function (givenRow){
+            var cells = $(givenRow).find('td').not(ignoredColumn);
             for (var i = 0; i < cells.length; i++) {
-              if (cellValues(i, cells[i], false) != ''){
-                result = false;
-                break;
+              if (cellValues(i, cells[i], false) !== ''){
+                return false;
               }
             }
-            return result;
-          }
+            return true;
+          };
 
           if( ( $row.is(':visible') || !opts.ignoreHiddenRows ) && ( !isEmptyRow($row) || !opts.ignoreEmptyRows ) && ( !$row.data('ignore') || $row.data('ignore') === 'false' ) ) {
             cellIndex = 0;
@@ -186,7 +184,7 @@
     };
 
     // Run
-    var headings = getHeadings(this);
-    return construct(this, headings);
+    var foundHeadings = getHeadings(this);
+    return construct(this, foundHeadings);
   };
 })( jQuery );

@@ -1,3 +1,6 @@
+## 2020-01-17 - Release 0.13.1
+* `ignoreEmptyRows` feature should consider `ignoreColumns` when deciding what is considered an empty row.
+
 ## 2017-07-14 - Release 0.13.0
 * Skip columns where headers are not present.
 

@@ -282,7 +282,7 @@ test('ignore empty rows', function() {
         '<td>Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
-      '<tr">' +
+      '<tr>' +
         '<td></td>' +
         '<td></td>' +
         '<td></td>' +
@@ -317,7 +317,7 @@ test('ignore empty rows', function() {
         '<td>Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
-      '<tr">' +
+      '<tr>' +
         '<td></td>' +
         '<td></td>' +
         '<td></td>' +

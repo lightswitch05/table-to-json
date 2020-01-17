@@ -8,10 +8,10 @@
     "tabletojson",
     "json"
   ],
-  "version": "0.12.0",
+  "version": "0.13.1",
   "author": {
     "name": "Daniel White",
-    "url": "http://www.developerdan.com"
+    "url": "https://www.github.developerdan.com/"
   },
   "licenses": [
     {
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/lightswitch05/table-to-json",
   "docs": "https://github.com/lightswitch05/table-to-json",
   "download": "https://github.com/lightswitch05/table-to-json",
-  "demo": "http://lightswitch05.github.io/table-to-json/",
+  "demo": "https://lightswitch05.github.io/table-to-json/",
   "dependencies": {
     "jquery": ">=1.5"
   }

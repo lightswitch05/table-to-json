@@ -1,20 +1,20 @@
 # Table To JSON
 
 [![Build Status](https://travis-ci.org/lightswitch05/table-to-json.png?branch=master)](https://travis-ci.org/lightswitch05/table-to-json)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lightswitch05/table-to-json?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![license](https://img.shields.io/github/license/lightswitch05/table-to-json.svg)](https://github.com/lightswitch05/table-to-json/blob/master/MIT-LICENSE)
 
 jQuery plugin to serialize HTML tables into javascript objects.
 
 ## Links
-- Demo: http://lightswitch05.github.io/table-to-json/
-- Plunker Template: http://plnkr.co/edit/iQFtcEEZkvsMJ2UqcrlW?p=preview
+- Demo: https://lightswitch05.github.io/table-to-json/
+- Plunker Template: https://plnkr.co/edit/iQFtcEEZkvsMJ2UqcrlW?p=preview
 
 ## CDN
 
 It is recommended to pull this tool into your project directly. But if you insist to use a CDN, here is one:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/table-to-json@0.13.0/lib/jquery.tabletojson.min.js" integrity="sha256-AqDz23QC5g2yyhRaZcEGhMMZwQnp8fC6sCZpf+e7pnw=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/table-to-json@0.13.1/lib/jquery.tabletojson.min.js" integrity="sha256-2K9QLPRuTW79vSINk8svHvyQk/eapssj4EV0G1R84WY=" crossorigin="anonymous"></script>
 ```
 
 ## Features
@@ -145,7 +145,7 @@ It is recommended to pull this tool into your project directly. But if you insis
 
 ## Contributing
 
-* Install [Node.js](http://nodejs.org/).
+* Install [Node.js](https://nodejs.org).
   * this will also the `npm` package manager.
 * run `npm install` from app root directory.
   * This installs grunt and other dependencies See `package.json` for a full list.
@@ -168,4 +168,4 @@ It is recommended to pull this tool into your project directly. But if you insis
 * [danielapsmaior](https://github.com/danielapsmaior) for discovering and fixing a `rowspan` & `colspan` bug.
 * [koshuang](https://github.com/koshuang) for adding `extractor` feature!
 * [noma4i](https://github.com/noma4i) added feature "Skip columns where headers are not present"
-
+* [cn-tools](https://github.com/cn-tools) for reporting AND fixing a bug when using both `ignoreEmptyRows` and `ignoreColumns` options
