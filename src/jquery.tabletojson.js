@@ -103,13 +103,13 @@
           $row = $(row);
 
           var isEmptyRow = function (row){
-            let result = true;
-            let cells = $(row).find('td').not(ignoredColumn);
-            for (let i = 0; i < cells.length; i++) {
+            var result = true;
+            var cells = $(row).find('td').not(ignoredColumn);
+            for (var i = 0; i < cells.length; i++) {
               if (cellValues(i, cells[i], false) != ''){
-				  result = false;
-				  break;
-			  }
+                result = false;
+                break;
+              }
             }
             return result;
           }
