@@ -25,7 +25,7 @@
     var notEmpty = function(value) {
       return value !== undefined && value.length > 0;
     };
-    
+
     var ignoredColumn = function(index) {
       if( notNull(opts.onlyColumns) ) {
         return $.inArray(index, opts.onlyColumns) === -1;
@@ -102,9 +102,19 @@
 
           $row = $(row);
 
-          var isEmpty = ($row.find('td').length === $row.find('td:empty').length) ? true : false;
+          var isEmptyRow = function (row){
+            var result = true;
+            var cells = $(row).find('td').not(ignoredColumn);
+            for (var i = 0; i < cells.length; i++) {
+              if (cellValues(i, cells[i], false) != ''){
+                result = false;
+                break;
+              }
+            }
+            return result;
+          }
 
-          if( ( $row.is(':visible') || !opts.ignoreHiddenRows ) && ( !isEmpty || !opts.ignoreEmptyRows ) && ( !$row.data('ignore') || $row.data('ignore') === 'false' ) ) {
+          if( ( $row.is(':visible') || !opts.ignoreHiddenRows ) && ( !isEmptyRow($row) || !opts.ignoreEmptyRows ) && ( !$row.data('ignore') || $row.data('ignore') === 'false' ) ) {
             cellIndex = 0;
             if (!tmpArray[rowIndex]) {
               tmpArray[rowIndex] = [];
