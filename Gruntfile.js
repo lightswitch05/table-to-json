@@ -25,10 +25,12 @@ module.exports = function(grunt) {
                 ' */\n'
       },
       dist: {
-        src: [
-          'src/jquery.tabletojson.js'
-        ],
-        dest : 'lib/jquery.tabletojson.js'
+        files: {
+          'lib/jquery.tabletojson.js':
+            ['src/tabletojson-cell.js',
+              'src/tabletojson-row.js',
+              'src/tabletojson.js']
+        }
       }
     },
     jshint: {
