@@ -64,7 +64,6 @@
           spans[cellIndex] = rows;
         }
       }
-      //console.log("spans" + JSON.stringify(spans));
       return spans;
     },
 
@@ -93,14 +92,14 @@
           spans[cellIndex] = rows;
         }
       }
-      //console.log("spans" + JSON.stringify(spans));
       return spans;
     },
 
-    values: function(){
+    values: function(options){
+      var runOptions = $.extend({}, this.options, options);
       var cellValues = [], value = null, colSpanOffset = 0;
       for(var index = 0; index < this.cells.length; index++){
-        value = this.cells[index].value();
+        value = this.cells[index].value(runOptions);
 
         if (this.cells[index].colSpan() === 1) {
           // simple case, either ignore it or not
@@ -133,7 +132,7 @@
       // Init Cells
       var self = this;
       this.$element.children(this.options.cellSelector).each(function(cellIndex, cell) {
-        self.cells.push( $(cell).tableToJSONCell(self.options) );
+        self.cells.push( $(cell).tableToJSONCell(cellIndex, self.options) );
       });
 
       // Finalize init

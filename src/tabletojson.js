@@ -13,7 +13,8 @@
 
     headings: function() {
       if(this.rows.length > 0 && !this.options.headings){
-        return this.rows[0].values();
+        // have to disable the extractor for header rows
+        return this.rows[0].values({extractor: null, textExtractor: null});
       } else if (this.options.headings){
         return this.options.headings;
       } else {
@@ -52,27 +53,6 @@
       $row.insertRowSpans(rowSpans);
       this.rows.push($row);
       return $row.getRowSpans(rowSpans);
-
-      /*
-      if(rowSpans.length === 0){
-        // no previous row spans to worry about
-        this.rows.push($row);
-      } else {
-        for(var startingCell=0; startingCell < rowSpans.length; startingCell++){
-          spannedCells = rowSpans[startingCell];
-          if(spannedCells && spannedCells.length > 0){
-            cell = spannedCells.splice(0, 1);
-            $row.insert(startingCell, cell);
-          }
-          if(spannedCells.length > 0){
-            rowSpans[startingCell] = spannedCells;
-          } else {
-            rowSpans.splice(startingCell, 1);
-          }
-        }
-        rowSpans.shift();
-      }
-      return rowSpans;*/
     },
 
     init: function () {
@@ -81,10 +61,6 @@
       this.$element.children(this.options.rowParentSelector).children(this.options.rowSelector).each(function(rowIndex, row) {
         newRow = $(row).tableToJSONRow(self.options);
         rowSpans = self.addRow( newRow, rowSpans );
-        //span = newRow.rowSpans();
-        //if(span.length > 0){
-        //  rowSpans.push(span);
-       // }
       });
 
       $.proxy(function() {
@@ -109,43 +85,38 @@
 
   $.fn.tableToJSON.defaults = {
     /**
-    Array of row indexes to ignore.
-
-    @type Array
-    @default []
-    **/
+     * Array of row indexes to ignore.
+     * @type Array
+     * @default []
+     */
     ignoreRows: [],
 
     /**
-    Boolean if hidden rows should be ignored or not.
-
-    @type boolean
-    @default true
-    **/
+     * Boolean if hidden rows should be ignored or not.
+     * @type Boolean
+     * @default true
+     */
     ignoreHiddenRows: true,
 
     /**
-    Boolean if hidden rows should be ignored or not.
-
-    @type boolean
-    @default false
-    **/
+     * Boolean if hidden rows should be ignored or not.
+     * @type Boolean
+     * @default false
+     */
     ignoreEmptyRows: false,
 
     /**
-    Array of column headings to use. When supplied, all table rows are treated as values (no headings row).
-
-    @type Array
-    @default null
-    **/
+     * Array of column headings to use. When supplied, all table rows are treated as values (no headings row).
+     * @type Array
+     * @default null
+     */
     headings: null,
 
     /**
-    Determines if the `id` attribute of each `<tr>` element is included in the JSON.
-
-    @type boolean
-    @default false
-    **/
+     * Determines if the `id` attribute of each `<tr>` element is included in the JSON.
+     * @type Boolean
+     * @default false
+     */
     includeRowId: false,
 
     rowParentSelector: 'tbody,*',

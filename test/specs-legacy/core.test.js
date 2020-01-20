@@ -632,7 +632,11 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
   deepEqual(table, expected);
 });
 
-/* includeRowId option boolean type places the attribute ID from the row as a property of the row */
+/**
+ * WARNING! The test results here are different then in 0.13.1!
+ * In this version, an empty rowid is `null` - but in the old release its an empty string.
+ * I think this is the preferred way - but its still different behavior!
+ */
 test('includeRowId option boolean type places the attribute ID from the row as a property of the row', function () {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
@@ -672,11 +676,16 @@ test('includeRowId option boolean type places the attribute ID from the row as a
     {'rowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'rowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'rowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'rowId':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'rowId': null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'} // in the legacy this `null` is empty string
   ];
   deepEqual(table, expected);
 });
 
+/**
+ * WARNING! The test results here are different then in 0.13.1!
+ * In this version, an empty rowid is `null` - but in the old release its an empty string.
+ * I think this is the preferred way - but its still different behavior!
+ */
 /* includeRowId option custom, instead of a boolean use a string, and string value will be the property name. */
 test('includeRowId option string type, instead of a boolean use a string, and string value will be the property name', function () {
   $('#qunit-fixture').html(
@@ -717,7 +726,7 @@ test('includeRowId option string type, instead of a boolean use a string, and st
     {'customIDname':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'customIDname':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'customIDname':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'customIDname':'', 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'customIDname':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'} // in the legacy this `null` is empty string
   ];
   deepEqual(table, expected);
 });

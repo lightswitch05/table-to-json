@@ -553,3 +553,48 @@ test('ignoreRows with rowspan & colspan in tbody', function() {
   ];
   deepEqual(table, expected, 'Ignore row 6');
 });
+
+test('textDataOverride overrides', function() {
+  $('#qunit-fixture').html(
+    '<table id="test-table">' +
+    '<tr>' +
+    '<th>First Name</th>' +
+    '<th>Last Name</th>' +
+    '<th>Points</th>' +
+    '</tr>' +
+    '<tr>' +
+    '<td data-override="Bobby" data-custom="Jack">Jill</td>' +
+    '<td data-override="Bill" data-custom="Frost">Smith</td>' +
+    '<td>50</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>Eve</td>' +
+    '<td>Jackson</td>' +
+    '<td>94</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>John</td>' +
+    '<td>Doe</td>' +
+    '<td>80</td>' +
+    '</tr>' +
+    '</table>'
+  );
+
+  expect(2);
+
+  var table = $('#test-table').tableToJSON();
+  var expected = [
+    {'First Name':'Bobby', 'Last Name':'Bill', 'Points':'50'},
+    {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'First Name':'John', 'Last Name':'Doe', 'Points':'80'}
+  ];
+  deepEqual(table, expected, 'Default override');
+
+  table = $('#test-table').tableToJSON({ textDataOverride: 'data-custom'});
+  expected = [
+    {'First Name':'Jack', 'Last Name':'Frost', 'Points':'50'},
+    {'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
+    {'First Name':'John', 'Last Name':'Doe', 'Points':'80'}
+  ];
+  deepEqual(table, expected, 'Custom override');
+});
