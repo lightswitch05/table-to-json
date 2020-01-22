@@ -1,6 +1,6 @@
 /*global module, test, expect, deepEqual */
 
-module('core');
+module('legacy-core');
 
 /* Basic Usage */
 test('basic usage', function() {
@@ -282,7 +282,7 @@ test('ignore empty rows', function() {
         '<td>Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
-      '<tr">' +
+      '<tr>' +
         '<td></td>' +
         '<td></td>' +
         '<td></td>' +
@@ -298,8 +298,8 @@ test('ignore empty rows', function() {
   deepEqual(table, expected);
 });
 
-/* Ignore empty rows defaults to false */
-test('ignore empty rows defaults to false', function() {
+/* Include Empty Row */
+test('ignore empty rows', function() {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
       '<tr>' +
@@ -317,7 +317,7 @@ test('ignore empty rows defaults to false', function() {
         '<td>Jackson</td>' +
         '<td>94</td>' +
       '</tr>' +
-      '<tr">' +
+      '<tr>' +
         '<td></td>' +
         '<td></td>' +
         '<td></td>' +
@@ -334,8 +334,8 @@ test('ignore empty rows defaults to false', function() {
   deepEqual(table, expected);
 });
 
-/* Ignore empty rows via data attribute */
-test('ignore empty rows via data attribute', function() {
+/* Ignore Row Option */
+test('ignore empty rows', function() {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
       '<tr>' +
@@ -632,7 +632,11 @@ test('allowHTML option allows HTML tags within a table to remain in the object',
   deepEqual(table, expected);
 });
 
-/* includeRowId option boolean type places the attribute ID from the row as a property of the row */
+/**
+ * WARNING! The test results here are different then in 0.13.1!
+ * In this version, an empty rowid is `null` - but in the old release its an empty string.
+ * I think this is the preferred way - but its still different behavior!
+ */
 test('includeRowId option boolean type places the attribute ID from the row as a property of the row', function () {
   $('#qunit-fixture').html(
     '<table id="test-table">' +
@@ -672,11 +676,16 @@ test('includeRowId option boolean type places the attribute ID from the row as a
     {'rowId':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'rowId':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'rowId':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'rowId':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'rowId': null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'} // in the legacy this `null` is empty string
   ];
   deepEqual(table, expected);
 });
 
+/**
+ * WARNING! The test results here are different then in 0.13.1!
+ * In this version, an empty rowid is `null` - but in the old release its an empty string.
+ * I think this is the preferred way - but its still different behavior!
+ */
 /* includeRowId option custom, instead of a boolean use a string, and string value will be the property name. */
 test('includeRowId option string type, instead of a boolean use a string, and string value will be the property name', function () {
   $('#qunit-fixture').html(
@@ -717,7 +726,101 @@ test('includeRowId option string type, instead of a boolean use a string, and st
     {'customIDname':'1', 'First Name':'Jill', 'Last Name':'Smith', 'Points':'50'},
     {'customIDname':'2', 'First Name':'Eve', 'Last Name':'Jackson', 'Points':'94'},
     {'customIDname':'3', 'First Name':'John', 'Last Name':'Doe', 'Points':'80'},
-    {'customIDname':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'}
+    {'customIDname':null, 'First Name':'No', 'Last Name':'Row', 'Points':'ID'} // in the legacy this `null` is empty string
   ];
+  deepEqual(table, expected);
+});
+
+test('Basic Usage extractor option', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+        '<thead>' +
+          '<tr>' +
+            '<th>Title</th>' +
+            '<th>Street</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<td><span>Doctor</span> Jill Smith</td>' +
+            '<td>123 <span>Main</span> Street</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>President</span> Eve Jackson</td>' +
+            '<td>999 <span>National</span> Blvd.</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>Mr.</span> John Doe</td>' +
+            '<td>555 <span>Letter</span> Ave.</td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>'
+    );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    extractor : function(cellIndex, $cell) {
+      return $cell.find('span').text();
+    }
+  });
+  var expected = [{'Title':'Doctor', 'Street':'Main'},
+                  {'Title':'President', 'Street':'National'},
+                  {'Title':'Mr.', 'Street':'Letter'}];
+  deepEqual(table, expected);
+});
+
+test('extractor option per column', function() {
+  $('#qunit-fixture').html(
+      '<table id="test-table">' +
+        '<thead>' +
+          '<tr>' +
+            '<th>Title</th>' +
+            '<th>Number</th>' +
+            '<th>Date</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<td><span>Doctor</span> Jill Smith</td>' +
+            '<td data-override="345"><em>123</em> Main Street</td>' +
+            '<td>1/31/2015</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>President</span> Eve Jackson</td>' +
+            '<td><em>999</em> National Blvd.</td>' +
+            '<td>2/1/2014</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><span>Mr.</span> John Doe</td>' +
+            '<td><em>555</em> Letter Ave.</td>' +
+            '<td>12/2/2014</td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>'
+    );
+
+
+  expect(1);
+  var table = $('#test-table').tableToJSON({
+    extractor : {
+      0 : function(cellIndex, $cell) {
+        return $cell.find('span').text();
+      },
+      1 : function(cellIndex, $cell) {
+        return $cell.find('em').text();
+      },
+      2 : function(cellIndex, $cell) {
+        return new Date( $cell.text() ).toString();
+      }
+    }
+  });
+  var dates = [ '1/31/2015', '2/1/2014', '12/2/2014' ];
+  $.each(dates, function(i,v){
+    dates[i] = new Date(v).toString();
+  });
+  var expected = [{'Title':'Doctor', 'Number':'345', 'Date': dates[0]},
+                  {'Title':'President', 'Number':'999', 'Date': dates[1]},
+                  {'Title':'Mr.', 'Number':'555', 'Date': dates[2] }];
   deepEqual(table, expected);
 });
