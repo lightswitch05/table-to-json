@@ -1,4 +1,4 @@
-## 2020-01-19 - Release 1.0.0-rc1
+## 2020-01-22 - Release 1.0.0
 * Greatly improved `colspan` & `rowspan` support.
 * When using `includeRowId`, `rowid` is now set to `null` if the row does not have an ID set (previously gave an empty string).
 * More thorough tests.

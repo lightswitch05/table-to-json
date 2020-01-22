@@ -1,6 +1,6 @@
 {
   "name": "table-to-json",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0",
   "main": [
     "./lib/jquery.tabletojson.min.js"
   ],

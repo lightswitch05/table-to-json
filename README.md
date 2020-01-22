@@ -14,7 +14,7 @@ jQuery plugin to serialize HTML tables into javascript objects.
 It is recommended to pull this tool into your project directly. But if you insist to use a CDN, here is one:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/table-to-json@0.13.1/lib/jquery.tabletojson.min.js" integrity="sha256-2K9QLPRuTW79vSINk8svHvyQk/eapssj4EV0G1R84WY=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/table-to-json@1.0.0/lib/jquery.tabletojson.min.js" integrity="sha256-H8xrCe0tZFi/C2CgxkmiGksqVaxhW0PFcUKZJZo1yNU=" crossorigin="anonymous"></script>
 ```
 
 ## Features
